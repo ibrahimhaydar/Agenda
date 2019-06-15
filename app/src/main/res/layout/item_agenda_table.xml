@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="70dp">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:background="@drawable/border_table"
+        >
+
+        <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            android:text="Maths"
+            android:id="@+id/courseName"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:orientation="vertical"
+        android:id="@+id/linearDesc"
+        android:background="@drawable/border_table"
+        >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    >
+        <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textSize="10sp"
+            android:text=""
+            android:id="@+id/description"
+            android:visibility="visible"
+            />
+
+
+        <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            android:text=""
+            android:id="@+id/descriptionAr"
+            />
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/linearInfo"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N.B: "
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textColor="@color/orange"
+                />
+
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:text=""
+                android:id="@+id/info"
+                android:visibility="visible"
+                />
+
+
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:visibility="gone"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:text=" "
+                android:id="@+id/infoAr"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/border_table"
+        android:id="@+id/linearDelete"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/delete"
+            android:id="@+id/delete"
+            />
+    </LinearLayout>
+
+</LinearLayout>

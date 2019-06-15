@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:id="@+id/linearToolbar"
+    android:background="@color/colorPrimary"
+    android:layoutDirection="ltr"
+    >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="1"
+        >
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/back_icon"
+    android:id="@+id/ivBack"
+
+    />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+<com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/white"
+    android:layout_gravity="center"
+    android:gravity="center"
+
+    android:textSize="22sp"
+    android:id="@+id/toolbarTitle"
+    />
+
+        <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+
+            android:gravity="center"
+            android:layout_marginTop="1dp"
+            android:text=""
+            android:textSize="20sp"
+            android:id="@+id/toolbarTitleAr"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        >
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/logout"
+            android:id="@+id/ivRight"
+            />
+    </LinearLayout>
+</LinearLayout>

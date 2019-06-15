@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    >
+<include layout="@layout/loading"/>
+
+    <include layout="@layout/toolbar"/>
+    <android.support.v7.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="3dp" >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@color/gray"
+    android:layout_gravity="center"
+    android:gravity="center"
+
+    android:orientation="vertical"
+    >
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pickdate"
+        android:id="@+id/ivCalendar"
+
+        />
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:id="@+id/ctvDate"
+        android:textSize="22sp"
+        android:layout_marginTop="10dp"
+        />
+
+</LinearLayout>
+    </android.support.v7.widget.CardView>
+    <include layout="@layout/empty"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layoutDirection="ltr"
+        android:layout_margin="25dp"
+        >
+<com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:textColor="@color/white"
+    android:background="@color/colorPrimary"
+    android:textSize="20sp"
+    android:text="INFORMATION"
+    android:layout_gravity="center"
+    android:gravity="center"
+    />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border_table"
+                >
+                <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="المادة"
+                    android:textColor="@color/black"
+                    />
+                <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="ٍSubject"
+                    android:textColor="@color/black"
+                    />
+                <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Matiere"
+                    android:textSize="10sp"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:background="@drawable/border_table"
+                >
+
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    >
+
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:text="ٍLessons &amp; Homework"
+        android:textColor="@color/black"
+        />
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="lecons &amp; devoir"
+        android:textSize="10sp"
+        android:textColor="@color/black"
+        />
+
+</LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:layoutDirection="rtl"
+                    android:layout_marginRight="10dp"
+                    >
+
+                    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text="الدروس والوظائف"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_table"
+                android:id="@+id/linearDelete"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+                <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="12sp"
+
+                    android:textColor="@color/black"
+                    android:text="Delete"
+
+
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rvAgenda"
+            android:background="@color/white"
+
+            />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

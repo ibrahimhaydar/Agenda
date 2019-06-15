@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+android:background="@color/white"
+    >
+
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/welcome_ar1"
+        android:textSize="20sp"
+
+        />
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/welcome_ar2"
+        android:textSize="20sp"
+
+        />
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:scaleType="centerInside"
+    android:src="@drawable/logo_splash"
+    android:layout_gravity="center"
+    />
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/welcome_en"
+        />
+</LinearLayout>

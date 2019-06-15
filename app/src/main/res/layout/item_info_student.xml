@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="left"
+    android:gravity="center_vertical"
+    android:layout_marginTop="5dp"
+    >
+
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/ctvStudentName"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_gravity="left"
+        android:gravity="left"
+        android:background="@color/gray"
+        />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="left"
+    android:gravity="left"
+    android:id="@+id/linearStudentInfo"
+    >
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ctvCourseName"
+        android:layout_gravity="left"
+        android:gravity="left"
+        />
+
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/ctvEvaluation"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="left"
+        android:gravity="left"
+        />
+</LinearLayout>
+
+
+</LinearLayout>

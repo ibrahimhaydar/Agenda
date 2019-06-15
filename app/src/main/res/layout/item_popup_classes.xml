@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginTop="10dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="horizontal"
+    >
+
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:id="@+id/ctvPopupClasses"
+        android:textSize="12sp"
+        android:layout_gravity="start"
+        android:gravity="center_vertical"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:paddingRight="4dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_height="25dp"
+        android:text="Select"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="2dp"
+        android:background="@drawable/border_table"
+        android:id="@+id/btSelect"
+        />
+
+</LinearLayout>

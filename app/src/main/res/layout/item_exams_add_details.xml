@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="80dp"
+
+    >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/border_table"
+        android:id="@+id/linearBorder1"
+        >
+
+        <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:hint="Pick Course"
+            android:id="@+id/ctvCourseTitle"
+            android:textSize="12sp"
+            />
+<!--        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:textSize="11sp"
+           android:paddingLeft="5dp"
+           android:id="@+id/etTitle"
+           android:background="@drawable/border_table"
+           />-->
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/border_table"
+        android:id="@+id/linearBorder2"
+        android:orientation="vertical"
+
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/pickdate"
+            android:id="@+id/ivPickDate"
+            />
+
+    <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ctvDate"
+        android:textSize="9sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/border_table"
+        android:id="@+id/linearBorder3"
+        >
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/spinner"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/spinnerItems"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/border_table"
+        android:id="@+id/linearBorder4"
+        android:orientation="vertical"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/disableFrom"
+            android:background="@color/grayline"
+            android:visibility="gone"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/pick_time"
+            android:id="@+id/ivPickTimeFrom"
+            android:layout_gravity="center_horizontal"
+            />
+        <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/ctvFrom"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/border_table"
+        android:id="@+id/linearBorder5"
+        android:orientation="vertical"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/disableTo"
+            android:background="@color/grayline"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/pick_time"
+            android:id="@+id/ivPickTimeTo"
+            android:layout_gravity="center_horizontal"
+            />
+        <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/ctvTo"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

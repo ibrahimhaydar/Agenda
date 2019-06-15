@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "869832984286",
+    "firebase_url": "https://lass-b04e9.firebaseio.com",
+    "project_id": "lass-b04e9",
+    "storage_bucket": "lass-b04e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869832984286:android:ac92df5ec69797fe",
+        "android_client_info": {
+          "package_name": "com.mobiweb.ibrahim.agenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869832984286-i4q6rlf9kljbler25vu2fgfb00hb70rf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLwn_6s-_-ShKH1C4WQlRUhKCOhbiQSJU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,162 @@
+<resources>
+    <string name="app_name">
+
+        ثانوية العهد اللبنانية
+</string>
+    <string name="welcome">Welcome</string>
+    <string name="welcome_ar">أهلاً وسهلاً </string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="school_phone">&#160;+961 8 335 676</string>
+    <string name="school_mail">&#160;info@lass.academy</string>
+    <string name="telephone">Tel/Fax: </string>
+    <string name="email">Email: </string>
+
+    <string name="Agenda">Agenda</string>
+    <string name="AgendaAr">المفكرة</string>
+
+    <string name="activities">Activities</string>
+    <string name="activitiesAr">الأنشطة</string>
+
+    <string name="exams">Exams</string>
+    <string name="examsAr">الإمتحانات</string>
+
+    <string name="videos">Videos</string>
+    <string name="videosAr">الفيديو</string>
+
+    <string name="addImage">Add Images</string>
+    <string name="addImageAr">إضافة صور</string>
+
+    <string name="announcement">Announcements</string>
+    <string name="announcementAr">التعاميم</string>
+
+    <string name="add_announcement">Add Announcement</string>
+    <string name="add_announcement_ar">اضافة تعميم</string>
+
+    <string name="noData">No data for selected day</string>
+    <string name="noDataAr">لا يوجد بيانات لهذا اليوم</string>
+
+    <string name="noSchedule">No Schedule available for this class</string>
+    <string name="noScheduleAr">لا يوجد برنامج أسبوعي لهذا الصف</string>
+
+    <string name="noExams">No exams available for this time</string>
+    <string name="noExamsAr">لا يوجد إمتحانات لهذا الوقت</string>
+
+    <string name="agenda">Agenda</string>
+
+
+    <string name="logout">Are you sure you want to logout?</string>
+    <string name="logoutAr">هل انت متأكد تريد تسجيل الخروج</string>
+    <string name="login_message">Please login to your account</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="string_help_text"> The permission is missing.\n\nTo grant this permission click on Settings, then Permissions and turn the permission on.\n\nThen click back twice to return to the app</string>
+    <string name="quit">Exit App</string>
+    <string name="string_choose_image">Select Image to Upload</string>
+
+    <string name="welcome_en">Welcome to L.A.S.S mobile application</string>
+    <string name="welcome_ar1">
+        أهلاً بكم في التطبيق الإلكتروني ل
+  </string>
+    <string name="welcome_ar2">ثانوية العهد اللبنانية
+</string>
+    <string name="about_text">
+ثانوية العهد اللبنانية، مؤسسة تربوية صاحبة رسالة تعليمية ورؤىً مستقبلية وهدف إجتماعي.
+\n\n
+تأسست عام 1993 م ، صفوفها من الروضة الى الصف التاسع أساسي بالفرعين الفرنسي و الانكليزي، و نعمل حالياً على إفتتاح المرحلة الثانوية قريباً.
+\n\n
+
+تقع مدرستنا في بلدة سرعين عند سفوح جبال لبنان الشرقية ، وتطل على سهل البقاع الأوسط المشرف على جبل صنين في سلسلة جبال لبنان الغربية.
+        \n\n
+نعمل منذ التأسيس على الإرتقاء بالمستوى التعليمي لطلابنا الأعزاء ليكون دوماً في موقع الصدارة وعلى مستوى المنافسة و التحدي.
+\n\n
+وانطلاقاً من ضرورة التعاون بين المدرسة و الأهل أطلقنا هذا التطبيق الإلكتروني الذي يساعد على حسن المتابعة و المواكبة اليومية والإشراف على مسيرة أبنائكم التربوية.
+  </string>
+
+    <string name="fb_text">تابعونا على فايسبوك</string>
+    <string name="fb_text_page">
+
+    الصفحة الرسمية
+</string>
+    <string name="teachers">School staff</string>
+    <string name="teachers_ar">الأساتذة والموظفين</string>
+    <string name="classes">Classes</string>
+    <string name="classes_ar">الصفوف</string>
+
+    <string name="add_hw">Add Homework</string>
+    <string name="add_hw_ar">إضافة واجب منزلي</string>
+
+    <string name="edit_video">Edit Video</string>
+    <string name="edit_video_ar">تعديل الفيديو</string>
+
+    <string name="edit_hw">Edit Homework</string>
+    <string name="edit_hw_ar">تعديل الواجب المنزلي</string>
+
+    <string name="school_title">L.A.S.S</string>
+    <string name="school_title_ar">ثانوية العهد اللبنانية</string>
+
+    <string name="parents">Parents</string>
+    <string name="parents_ar">الأهالي</string>
+
+    <string name="direction">Direction</string>
+    <string name="direction_ar">الإدارة</string>
+
+    <string name="homework">Homework</string>
+    <string name="homework_ar">الواجب المنزلي</string>
+
+    <string name="courses">Courses</string>
+    <string name="courses_ar">المواد</string>
+
+
+    <string name="add_activity">Add Activity</string>
+    <string name="add_activity_ar">إضافة نشاط</string>
+
+    <string name="schedual">Weekly Schedule</string>
+    <string name="schedualAr">البرنامج الأسبوعي</string>
+
+    <string name="schedual_teacher">Teacher Schedule</string>
+    <string name="schedual_teacherAr">البرنامج الأساتذة</string>
+
+
+    <string name="category">Exam Types</string>
+    <string name="categoryAr">فئات الإمتحان</string>
+
+    <string name="add_exam_info">Add Exam info</string>
+    <string name="add_exam_info_ar">اضافة بيانات الامتحان</string>
+
+
+    <string name="edit_exam_info">Edit Exam info</string>
+    <string name="edit_exam_info_ar">تعديل بيانات الامتحان</string>
+
+    <string name="edit_activity">Edit Activity</string>
+    <string name="edit_activity_ar">تعديل نشاط</string>
+
+    <string name="edit_announcement">Edit Announcement</string>
+    <string name="edit_announcement_ar">تعديل التعميم</string>
+
+    <string name="default_notification_channel_id" translatable="false">Announcement</string>
+
+    <string name="exam_timing_details">Exam Timing Details</string>
+    <string name="exam_timing_details_ar">توقيت الإمتحانات</string>
+
+    <string name="view_exam_details">View Exam Details</string>
+
+    <string name="add_video">Add Video</string>
+    <string name="add_video_ar">اضافة فيديو</string>
+
+
+    <string name="attendance">Attendance</string>
+    <string name="attendance_ar">الحضور</string>
+
+    <string name="evaluation">Evaluation</string>
+    <string name="evaluation_ar">التقييم</string>
+
+    <string name="grades">Grades</string>
+    <string name="grades_ar">العلامات</string>
+
+    <string name="class_grades">Class Grades</string>
+    <string name="class_grades_ar">جدول علامات الصف</string>
+
+</resources>

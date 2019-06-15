@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+
+    >
+
+    <include layout="@layout/toolbar"/>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:id="@+id/scrollView1"
+       >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlSchool"
+        >
+
+        <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:background="@color/white"
+            android:id="@+id/ivSchool"
+            android:src="@drawable/school_bg"
+        />
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo_new"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            />
+    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlSchool"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/rlBlock"
+
+            android:background="@drawable/about_bg_shadow"
+            android:layout_marginTop="-30dp"
+            >
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:layout_margin="15dp"
+
+     >
+
+     <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/welcome_ar2"
+         />
+
+     <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         android:text="@string/about_text"
+         />
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+
+         >
+
+         <ImageView
+             android:layout_width="35dp"
+             android:layout_height="35dp"
+             android:src="@drawable/fb"
+             android:layout_gravity="center_vertical"
+             android:layout_marginRight="10dp"
+             android:id="@+id/ivfacebook"
+             />
+         <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/fb_text"
+             android:layout_gravity="center_vertical"
+             android:gravity="center_vertical"
+             />
+
+     </LinearLayout>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         android:layout_marginTop="5dp"
+
+         >
+
+         <ImageView
+             android:layout_width="35dp"
+             android:layout_height="35dp"
+             android:src="@drawable/fb_page"
+             android:layout_gravity="center_vertical"
+             android:layout_marginRight="10dp"
+             android:id="@+id/ivfacebookPage"
+             />
+         <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/fb_text_page"
+             android:layout_gravity="center_vertical"
+             android:gravity="center_vertical"
+             />
+
+     </LinearLayout>
+
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+
+         android:layout_gravity="center_vertical"
+         android:layout_marginTop="20dp"
+         android:gravity="center_vertical">
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/mobile_icon"
+             android:layout_gravity="center_vertical"
+
+             />
+
+         <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+             android:layout_width="wrap_content"
+             android:layout_gravity="center_vertical"
+             android:gravity="center_vertical"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="10dp"
+             android:textSize="14sp"
+             android:text="@string/telephone"
+             />
+
+         <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+             android:layout_width="wrap_content"
+             android:layout_gravity="center_vertical"
+             android:gravity="center_vertical"
+             android:layout_height="wrap_content" android:textSize="14sp"
+             android:text="@string/school_phone"
+             />
+
+     </LinearLayout>
+
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+
+         android:layout_gravity="center_vertical"
+         android:layout_marginTop="10dp"
+         android:gravity="center_vertical">
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/email_icon"
+             android:layout_gravity="center_vertical"
+
+             />
+
+         <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+             android:layout_width="wrap_content"
+             android:layout_gravity="center_vertical"
+             android:gravity="center_vertical"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="10dp"
+             android:textSize="14sp"
+             android:text="@string/email"
+             />
+
+         <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+             android:layout_width="wrap_content"
+             android:layout_gravity="center_vertical"
+             android:gravity="center_vertical"
+             android:layout_height="wrap_content" android:textSize="14sp"
+             android:text="@string/school_mail"
+             />
+
+     </LinearLayout>
+
+
+
+
+ </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/scroll_map"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@id/rlBlock"
+
+            android:layout_marginTop="20dp"
+            >
+
+        <fragment xmlns:android = "http://schemas.android.com/apk/res/android"
+            android:id="@+id/map"
+
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+            <ImageView
+                android:id="@+id/image_trans"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/transparent"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</ScrollView>
+
+
+
+
+
+
+</LinearLayout>

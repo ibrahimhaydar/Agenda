@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mobiweb.ibrahim.agenda">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Samsung -->
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+
+    <!-- Sony -->
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+
+    <!-- HTC -->
+    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
+
+    <!-- for huawei -->
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission
+        android:name="com.example.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <application
+        android:name=".Agenda"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAQCZGBXZvhd3cw7ag3sirvDWL_6AeLMvQ" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+        <service android:name=".utils.pushFirebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".utils.pushFirebase.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".utils.pushFirebase.FcmTokenRegistrationService" />
+
+        <activity
+            android:name=".activities.Activity_Splash"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.director.Activity_direction_home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.parents.exams.Activity_view_exams_all_details"
+            android:screenOrientation="portrait" />
+
+        <!-- .activities.director.Activity_direction_home -->
+
+        <activity
+            android:name=".activities.Activity_login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".activities.ActivityBase"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Activity_main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.parents.Activity_classes"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.parents.agenda.ActivityAgenda"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.parents.agenda.Activity_inside_agenda"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Activity_about_school"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_teacher"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_teacher_classes"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_Add_homework"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_Teacher_Homeworks"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_edit_homework"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_edit_hw_inside"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.parents.agenda.PermissionsActivity" />
+        <activity
+            android:name=".activities.director.agenda.Activity_all_teachers"
+            android:screenOrientation="portrait" />
+        />
+        <activity
+            android:name=".activities.parents.agenda.ActivityImage"
+            android:screenOrientation="portrait" />
+        />
+        <activity
+            android:name=".activities.director.annoucement.Activity_announcement_main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.parents.activities.Activity_inside_activities"
+            android:screenOrientation="portrait" />
+        />
+        <activity
+            android:name=".activities.parents.activities.Activity_all_activities"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.activities.Activity_edit_activities"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.activities.Activity_add_activities"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.activities.Activity_activities_main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.activities.Activity_add_activity_images"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.annoucement.Activity_add_announcement"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.annoucement.Activity_view_announcement"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.activities.Activity_view_activities"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.annoucement.Activity_edit_announcement"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.videos.Activity_add_videos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.videos.Activity_edit_videos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.videos.Activity_view_videos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.videos.Activity_video_main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.videos.ActivityVideo"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".activities.director.schedual.Activity_view_schedule"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.exams.Activity_exams_add_general_info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.exams.Activity_exams_edit_general_info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.exams.Activity_exams_main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.exams.Activity_choose_exam_category"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.exams.Activity_exams_add_details"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".activities.director.exams.Activity_exams_view_details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.exams.Activity_exams_edit_details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_teacher_exams_main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_teacher_add_exams"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.activities.Activity_edit_activity_images"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_evaluation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_add_evaluation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_edit_evaluation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_attendance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.teachers.Activity_grades"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.Activity_class_grades"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.director.schedual.Activity_view_schedule_teacher"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.parents.Activity_student_attendance" android:screenOrientation="portrait" />
+        <activity android:name=".activities.teachers.ActivityImageTeacher" android:screenOrientation="portrait" />
+
+
+    </application>
+
+</manifest>

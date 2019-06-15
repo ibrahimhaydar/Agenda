@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "318640356362",
+    "firebase_url": "https://lebaneseal-ahd.firebaseio.com",
+    "project_id": "lebaneseal-ahd",
+    "storage_bucket": "lebaneseal-ahd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318640356362:android:fc1317a45613b64d",
+        "android_client_info": {
+          "package_name": "com.mobiweb.ibrahim.agenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318640356362-tj27vhv5pn5cg05ek5927it8fics6j47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1WjHpVC5OLSS-octjPhaGBvlmR5A9D9U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#30bfc0</color>
+    <color name="colorPrimaryDark">#00aab5</color>
+    <color name="colorAccent">#30bfc0</color>
+    <color name="loginButton">#1C6BA0</color>
+    <color name="grayline">#efefef</color>
+    <color name="bgclasses">#47b181</color>
+    <color name="lightGray">#ededed</color>
+    <color name="addEditbg">#5ebfd2</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#f5f5f5</color>
+    <color name="grayText">#767676</color>
+    <color name="orange">#ea7b4e</color>
+    <color name="transparent">#00000000</color>
+    <color name="red">#ff0000</color>
+    <color name="green">#47b181</color>
+    <array name="colors">
+        <item>#0076be</item>
+        <item>#00bf8c</item>
+        <item>#c150a2</item>
+        <item>#7bc14f</item>
+
+    </array>
+
+
+    <array name="colors_category">
+        <item>#5EBFD2</item>
+        <item>#7998C9</item>
+        <item>#FF9E7B</item>
+        <item>#89C7B6</item>
+        <item>#AD84C7</item>
+        <item>#E97778</item>
+
+    </array>
+
+    <color name="gray_bg">#F5F5F5</color>
+    <color name="gray_video">#454545</color>
+
+    <color name="home_color_1">#5EBFD2</color>
+    <color name="home_color_2">#7998C9</color>
+    <color name="home_color_3">#FF9E7B</color>
+    <color name="home_color_4">#89C7B6</color>
+    <color name="home_color_5">#AD84C7</color>
+    <color name="home_color_6">#E97778</color>
+
+    <color name="row_from_teacher">#77E97778</color>
+</resources>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <android.support.v7.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="240dp"
+         app:cardElevation="4dp"
+         android:layout_marginTop="20dp"
+        app:cardCornerRadius="3dp" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="15dp"
+            >
+            <android.support.v7.widget.CardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                app:cardCornerRadius="3dp" >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@color/gray_video"
+    >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/ivVideo"
+                android:scaleType="centerCrop"
+                />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ico_play"
+        android:id="@+id/ivPlay"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.Large.FadingCircle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/colorAccent" />
+</RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ctvTitleAr"
+                android:gravity="right"
+
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:paddingRight="10dp"
+                />
+
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:id="@+id/ctvDescriptionAr"
+                android:paddingRight="10dp"
+                />
+
+       <!--     android:maxLines="2"
+            android:ellipsize="end"-->
+
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ctvTitle"
+                android:layout_marginTop="10dp"
+
+                android:textColor="@color/black"
+                android:paddingLeft="10dp"
+                />
+
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/ctvDescription"
+
+
+                android:paddingLeft="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/linearButtons"
+                android:visibility="gone"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    >
+                    <Button
+                        android:id="@+id/btEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/addEditbg"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:text="Edit Video"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    >
+                    <Button
+                        android:id="@+id/btDeleteActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:textSize="12sp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/addEditbg"
+                        android:gravity="center"
+                        android:text="Delete Video"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+
+
+

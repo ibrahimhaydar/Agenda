@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgclasses"
+    android:orientation="vertical">
+    <include layout="@layout/toolbar" />
+    <include layout="@layout/loading"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/gray"
+                    android:gravity="center"
+                    android:orientation="vertical"
+
+                    android:paddingBottom="10dp"
+
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/ivCalendar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/pickdate"
+
+                        />
+
+                    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+                        android:id="@+id/ctvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="Select Date"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Homework Subject"
+                        android:textColor="@color/black"
+
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/etTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_border"
+                        android:editable="false"
+                        android:gravity="center_horizontal" />
+
+
+                    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Homework Description"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/etDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="@drawable/border"
+                        android:gravity="top" />
+
+                    <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Remark"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/etRemark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_border" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+
+                        android:background="@drawable/dash_border"
+                        android:layerType="software">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="1dp"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingBottom="20dp"
+                            android:paddingTop="20dp">
+
+                            <ImageView
+                                android:id="@+id/ivPickImage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/pick_image" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:orientation="horizontal">
+
+                                <RelativeLayout
+                                    android:id="@+id/rlImage1"
+                                    android:layout_width="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:id="@+id/pickedImage1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop" />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_marginRight="2dp"
+                                        android:id="@+id/ivClose1"
+                                        android:layout_marginTop="2dp"
+                                        android:src="@drawable/close" />
+
+                                </RelativeLayout>
+
+
+                                <RelativeLayout
+                                    android:id="@+id/rlImage2"
+                                    android:layout_width="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:id="@+id/pickedImage2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop" />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_marginRight="2dp"
+                                        android:layout_marginTop="2dp"
+                                        android:id="@+id/ivClose2"
+                                        android:src="@drawable/close" />
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/rlImage3"
+                                    android:layout_width="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:id="@+id/pickedImage3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop"
+
+
+                                        />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_marginRight="2dp"
+                                        android:layout_marginTop="2dp"
+                                        android:id="@+id/ivClose3"
+                                        android:src="@drawable/close" />
+
+                                </RelativeLayout>
+
+
+                                <RelativeLayout
+                                    android:id="@+id/rlImage4"
+                                    android:layout_width="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:id="@+id/pickedImage4"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop"
+
+
+                                        />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_marginRight="2dp"
+                                        android:id="@+id/ivClose4"
+                                        android:layout_marginTop="2dp"
+                                        android:src="@drawable/close" />
+
+                                </RelativeLayout>
+
+
+                                <RelativeLayout
+                                    android:id="@+id/rlImage5"
+                                    android:layout_width="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:id="@+id/pickedImage5"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop"
+
+
+                                        />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_marginRight="2dp"
+                                        android:id="@+id/ivClose5"
+                                        android:layout_marginTop="2dp"
+                                        android:src="@drawable/close" />
+
+                                </RelativeLayout>
+
+                                <ImageView
+                                    android:id="@+id/ivAddMore"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/addmore"
+                                    android:visibility="gone" />
+                            </LinearLayout>
+
+                            <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:gravity="center"
+                                android:text="Press here to Pick image" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/btAdd"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/addEditbg"
+                        android:gravity="center"
+                        android:text="Add"
+                        android:textColor="@color/white" />
+              <!--      android:id="@+id/progress"-->
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:visibility="gone">
+
+                        <ProgressBar
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

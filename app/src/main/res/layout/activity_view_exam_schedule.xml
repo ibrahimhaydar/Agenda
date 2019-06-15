@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+
+    >
+
+    <include layout="@layout/toolbar"/>
+    <include layout="@layout/loading"/>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+
+            >
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        android:background="#F3F3F3"
+        >
+        <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/ctvTitle"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            />
+        <com.mobiweb.ibrahim.agenda.Custom.NonScrollExpandableListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/idListView"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:nestedScrollingEnabled="false"
+            android:divider="@color/white"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@color/white"
+            android:groupIndicator="@android:color/transparent"
+            />
+
+        <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/black"
+            android:id="@+id/ctvNb"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            >
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:id="@+id/ctvMore"
+
+                />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+
+            >
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:text="مواد اللغة العربية"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvArabic"
+                android:background="@color/white"
+                />
+            </android.support.v7.widget.CardView>
+
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:text="مواد الإمتحانات"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical" android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                android:background="@color/white"
+                android:id="@+id/nodata"
+                >
+                <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="@string/noExams"
+                    />
+
+                <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="@string/noExamsAr"
+                    />
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvEnglish"
+                android:background="@color/white"
+                />
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+</LinearLayout>

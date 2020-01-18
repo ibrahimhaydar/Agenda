@@ -345,7 +345,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/view_hw"
+                                android:src="@drawable/ic_exams"
                                 android:layout_gravity="center"
                                 />
                         </LinearLayout>
@@ -443,7 +443,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/view_hw"
+                                android:src="@drawable/ic_evaluation"
                                 android:layout_gravity="center"
                                 />
                         </LinearLayout>
@@ -540,7 +540,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/view_hw"
+                                android:src="@drawable/ic_attendance"
                                 android:layout_gravity="center"
                                 />
                         </LinearLayout>
@@ -612,6 +612,7 @@
                     android:orientation="vertical" android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginRight="18dp"
                     android:layout_marginLeft="18dp"
                     android:layout_gravity="center"
@@ -637,7 +638,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/view_hw"
+                                android:src="@drawable/ic_grades"
                                 android:layout_gravity="center"
                                 />
                         </LinearLayout>

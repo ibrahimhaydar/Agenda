@@ -27,6 +27,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
@@ -38,9 +39,23 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.mobiweb.ibrahim.agenda.R;
 import com.mobiweb.ibrahim.agenda.activities.Activity_Splash;
+import com.mobiweb.ibrahim.agenda.models.entities.Activities;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
+import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService  {
@@ -51,14 +66,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService  {
     private NotificationManager notificationManager;
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
+
         Log.wtf("notification","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        Log.wtf("notification", "Notification Message TITLE: " + remoteMessage.getNotification().getTitle());
-        Log.wtf("notification", "Notification Message BODY: " + remoteMessage.getNotification().getBody());
+       // Log.wtf("notification", "Notification Message TITLE: " + remoteMessage.getNotification().getTitle());
+       // Log.wtf("notification", "Notification Message BODY: " + remoteMessage.getNotification().getBody());
         Log.wtf("notification", "Notification Message DATA: " + remoteMessage.getData().toString());
 
 
         String message;
-        message = remoteMessage.getNotification().getBody();
+        try {
+            message = remoteMessage.getNotification().getBody();
+        }catch (Exception e){
+            message = remoteMessage.getData().get("");
+        }
         Log.wtf("message", "message:" + message+"sdfdf");
 
   /*      JSONObject jsonData = new JSONObject(remoteMessage);
@@ -67,8 +88,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService  {
 
 
 
-        String click_action = remoteMessage.getNotification().getClickAction();
-        Log.wtf("click_action","bob"+click_action);
+      //  String click_action = remoteMessage.getNotification().getClickAction();
+       // Log.wtf("click_action","bob"+click_action);
 
 
         if (remoteMessage.getData().size()> 0){
@@ -101,14 +122,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService  {
         pushId=remoteMessage.getData().get("contentId");
 
 
-          sendNotification(
-                remoteMessage.getNotification().getTitle(),
-                remoteMessage.getNotification().getBody(),
+
+
+
+
+        sendNotification(
+                remoteMessage.getData().get("title"),
+                remoteMessage.getData().get("body"),
 
                 remoteMessage.getData().get("PageId"),
                 pushId,
                 remoteMessage.getData().get("date"),
-                click_action
+                  remoteMessage.getData().get("withImage"),
+                  remoteMessage.getData().get("arrayImages")
+
 
 
         );
@@ -135,11 +162,43 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService  {
 
 
     //This method is only generating push notification if app is opened
-    private void sendNotification(String messageTitle, String messageBody, String pageId, String pushId,String date, String clickAction) {
+    private void sendNotification(String messageTitle, String messageBody, String pageId, String pushId,String date,String withImage,String arrayImages) {
         Log.wtf("notification_send","ID "+pushId+"");
         Log.wtf("notification_send","contentTitle "+messageTitle+"");
         Log.wtf("notification_send","contentMessage "+messageBody+"");
         Log.wtf("notification_send","contentDate "+date+"");
+
+        Log.wtf("notification_send","arrayImage "+arrayImages+"");
+        Log.wtf("notification_send","withImage "+withImage+"");
+
+
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(arrayImages);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String[] strArr = new String[jsonArray.length()];
+        ArrayList<String> arrayListImages = new ArrayList<String>();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                strArr[i] = jsonArray.getString(i);
+                arrayListImages.add(jsonArray.getString(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Bitmap bitmap = null;
+        if(strArr.length>0)
+             bitmap= getBitmapfromUrl(RetrofitClient.BASE_URL+"announcement/"+strArr[0]);
+
+
+
+
+
+
+
         Intent intent = new Intent(this,Activity_Splash.class);
         intent.putExtra("PageId",pageId);
         intent.putExtra(AppConstants.ISPUSH,true);
@@ -147,6 +206,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService  {
         intent.putExtra("title",messageTitle);
         intent.putExtra("body",messageBody);
         intent.putExtra("date",date);
+        intent.putExtra("withImage",withImage);
+        intent.putStringArrayListExtra("arrayImage",arrayListImages);
+
+
+        for(int i=0;i<arrayListImages.size();i++)
+            Log.wtf("array_image","notification"+arrayListImages.get(i));
+
 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -168,26 +234,56 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService  {
         } else
             notificationBuilder = new NotificationCompat.Builder(this);
 
-        notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle(messageTitle)
-                    .setContentText(messageBody)
-                    .setAutoCancel(true)
-                    .setSound(defaultSoundUri)
+
+       if(withImage.matches("1")) {
+           notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                   .setSmallIcon(R.mipmap.ic_launcher)
+                   .setLargeIcon(bitmap)
+                   .setStyle(new NotificationCompat.BigPictureStyle()
+                           .bigPicture(bitmap))/*Notification with Image*/
+                   .setContentTitle(messageTitle)
+                   .setContentText(messageBody)
+                   .setAutoCancel(true)
+                   .setSound(defaultSoundUri)
                    .setChannelId(getResources().getString(R.string.default_notification_channel_id))
-                    .setContentIntent(contentIntent);
+                   .setContentIntent(contentIntent);
+       }else {
+           notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                   .setSmallIcon(R.mipmap.ic_launcher)
+                   .setContentTitle(messageTitle)
+                   .setContentText(messageBody)
+                   .setAutoCancel(true)
+                   .setSound(defaultSoundUri)
+                   .setChannelId(getResources().getString(R.string.default_notification_channel_id))
+                   .setContentIntent(contentIntent);
+       }
+
+
+
            notificationManager.notify(count, notificationBuilder.build());
-
-
-
-
-
-
-
-
 
 
         count++;
 
+    }
+
+
+
+    public Bitmap getBitmapfromUrl(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+
+        }
     }
 }

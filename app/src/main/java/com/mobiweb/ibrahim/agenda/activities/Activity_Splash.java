@@ -25,6 +25,11 @@ import com.mobiweb.ibrahim.agenda.utils.TelephonyHelper;
 import com.mobiweb.ibrahim.agenda.utils.pushFirebase.FcmHelper;
 import com.mobiweb.ibrahim.agenda.utils.pushFirebase.FcmTokenRegistrationService;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +40,9 @@ import retrofit2.Response;
 
 public class Activity_Splash extends ActivityBase {
     private boolean isPush = false;
-    private String pageId,contentId,contentTitle,contentMessage,contentDate;
+    private String pageId,contentId,contentTitle,contentMessage,contentDate,withImage;
+    private ArrayList<String> arrayImage=new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +78,42 @@ public class Activity_Splash extends ActivityBase {
             } catch (Exception e) {
                 contentId = "";
             }
+
+
+            try {
+                withImage = getIntent().getStringExtra("withImage");
+            } catch (Exception e) {
+                withImage = "0";
+            }
+
+            try {
+                arrayImage = getIntent().getStringArrayListExtra("arrayImage");
+
+
+            } catch (Exception e) {
+                try{
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = new JSONArray(getIntent().getStringExtra("withImage"));
+                    } catch (JSONException e4) {
+                        e.printStackTrace();
+                    }
+                    String[] strArr = new String[jsonArray.length()];
+
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        try {
+                            strArr[i] = jsonArray.getString(i);
+                            arrayImage.add(jsonArray.getString(i));
+                        } catch (JSONException e2) {
+                            e.printStackTrace();
+                        }
+                    }
+                }catch (Exception e1){}
+            }
+
+
+
             try {
                 contentTitle = getIntent().getStringExtra("title");
             } catch (Exception e) {
@@ -118,7 +161,7 @@ public class Activity_Splash extends ActivityBase {
                         onDataRetrieved(response.body());
                         Log.wtf("className", response.body().getStatus());
                     } catch (Exception e) {
-                        Log.wtf("loginerror1",e);
+                        Log.wtf("loginerror1",e.toString());
                         Log.wtf("loginerror1",username);
                         Log.wtf("loginerror1",password);
                         Log.wtf("loginerror1",loginType);
@@ -177,12 +220,20 @@ public class Activity_Splash extends ActivityBase {
                                 Log.wtf("announcement_extras : ", "message : " + contentMessage);
                                 Log.wtf("announcement_extras : ", "date : " + contentDate);
 
+                                try {
+                                    for (int i = 0; i < arrayImage.size(); i++)
+                                        Log.wtf("array_image", "not_splash" + arrayImage.get(i));
+                                }catch (Exception e){
+                                    arrayImage=new ArrayList<>();
+                                }
                                 intent = new Intent(Activity_Splash.this, Activity_inside_activities.class);
                                 intent.putExtra(AppConstants.ANNOUNCEMENT_ID, contentId);
                                 intent.putExtra(AppConstants.INTENT_FROM, AppConstants.INTENT_ANNOUNCEMENT);
                                 intent.putExtra(AppConstants.TITLE, contentTitle);
                                 intent.putExtra(AppConstants.DESCRIPTION, contentMessage);
                                 intent.putExtra(AppConstants.DATE, contentDate);
+                                intent.putExtra(AppConstants.WITH_IMAGE,withImage);
+                                intent.putStringArrayListExtra(AppConstants.HW_IMAGE,arrayImage);
                                 intent.putExtra(AppConstants.ISPUSH, true);
                             }else {
                                 intent = new Intent(Activity_Splash.this, Activity_direction_home.class);
@@ -274,7 +325,6 @@ public class Activity_Splash extends ActivityBase {
                         MNC,
                         MCC,
                         deviceVersion,
-
                         1
 
 

@@ -26,10 +26,12 @@ import com.mobiweb.ibrahim.agenda.activities.Activity_main;
 import com.mobiweb.ibrahim.agenda.activities.director.Activity_direction_home;
 import com.mobiweb.ibrahim.agenda.activities.parents.activities.Activity_inside_activities;
 import com.mobiweb.ibrahim.agenda.models.entities.Announcements;
+import com.mobiweb.ibrahim.agenda.models.entities.Image;
 import com.mobiweb.ibrahim.agenda.models.json.JsonAddHw;
 import com.mobiweb.ibrahim.agenda.models.json.JsonAnnouncement;
 import com.mobiweb.ibrahim.agenda.models.json.JsonParameters;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
+import com.mobiweb.ibrahim.agenda.utils.AppHelper;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitInterface;
 
@@ -144,12 +146,20 @@ public class Activity_view_announcement extends ActivityBase implements RVOnItem
             rvActivities.scrollToPosition(adapterAnnouncements.getItemCount() - 1);
             loadingPaging.setVisibility(View.VISIBLE);
         }
-
         else
             progress.setVisibility(View.VISIBLE);
+
+        String id_parent="";
+        if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_PARENT))
+            id_parent=((Agenda)getApplication()).getLoginId();
+        else
+            id_parent="";
+
+
+
         Call call1 = RetrofitClient.getClient().create(RetrofitInterface.class)
                 .getAnnouncements(new JsonParameters(
-                       ((Agenda)getApplication()).getLoginId(),
+                        id_parent,
                         page+"",
                         pageSize+"",
                         1,
@@ -203,16 +213,34 @@ public class Activity_view_announcement extends ActivityBase implements RVOnItem
             i.putExtra(AppConstants.ID,adapterAnnouncements.getactivities().get(position).getAnnouncement_id());
             i.putExtra(AppConstants.TITLE,adapterAnnouncements.getactivities().get(position).getTitle());
             i.putExtra(AppConstants.DESCRIPTION,adapterAnnouncements.getactivities().get(position).getDescription());
+            i.putExtra(AppConstants.IS_FILTER,adapterAnnouncements.getactivities().get(position).getIs_filter());
+            AppHelper.setSelectedClasses(adapterAnnouncements.getactivities().get(position).getClasses());
+            AppHelper.setActivityImages(adapterAnnouncements.getactivities().get(position).getImages());
             startActivity(i);
         }else if(view.getId()==R.id.btDeleteActivity){
              deleteAnnouncement(adapterAnnouncements.getactivities().get(position).getAnnouncement_id());
         }
         else {
+
+            String arrayStringImages="[]";
+            if(adapterAnnouncements.getactivities().get(position).getImages().size()>0) {
+                String insideArray="";
+                for (int i = 0; i < adapterAnnouncements.getactivities().get(position).getImages().size(); i++) {
+                    if(i==0)
+                      insideArray=insideArray+adapterAnnouncements.getactivities().get(position).getImages().get(i);
+                    else
+                      insideArray=","+insideArray+adapterAnnouncements.getactivities().get(position).getImages().get(i);
+
+                }
+                arrayStringImages="["+insideArray+"]";
+            }
             Intent i = new Intent(Activity_view_announcement.this, Activity_inside_activities.class);
             i.putExtra(AppConstants.TITLE, adapterAnnouncements.getactivities().get(position).getTitle());
             i.putExtra(AppConstants.INTENT_FROM,AppConstants.INTENT_ANNOUNCEMENT);
             i.putExtra(AppConstants.DESCRIPTION, adapterAnnouncements.getactivities().get(position).getDescription());
             i.putExtra(AppConstants.DATE, adapterAnnouncements.getactivities().get(position).getAnnouncement_date());
+            i.putExtra(AppConstants.WITH_IMAGE, adapterAnnouncements.getactivities().get(position).getWithImage());
+            i.putExtra(AppConstants.ARRAY_IMAGES, arrayStringImages);
 
             ArrayList<String> arrayImages = new ArrayList<String>();
             try {

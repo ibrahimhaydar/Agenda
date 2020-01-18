@@ -21,6 +21,18 @@ public class Child {
     @Expose
     private String className;
 
+    @SerializedName("image")
+    @Expose
+    private String image;
+
+    @SerializedName("birth_date")
+    @Expose
+    private String birth_date;
+
+
+
+
+
     public String getIdChild() {
         return idChild;
     }
@@ -61,4 +73,19 @@ public class Child {
         this.className = className;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getBirth_date() {
+        return birth_date;
+    }
+
+    public void setBirth_date(String birth_date) {
+        this.birth_date = birth_date;
+    }
 }

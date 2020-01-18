@@ -3,9 +3,12 @@ package com.mobiweb.ibrahim.agenda.utils;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -14,8 +17,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mobiweb.ibrahim.agenda.BuildConfig;
 import com.mobiweb.ibrahim.agenda.R;
+import com.mobiweb.ibrahim.agenda.models.entities.Allclass;
+import com.mobiweb.ibrahim.agenda.models.entities.Classes;
 import com.mobiweb.ibrahim.agenda.models.entities.Evaluation;
 import com.mobiweb.ibrahim.agenda.models.entities.Image;
 import com.mobiweb.ibrahim.agenda.models.entities.InfoStudent;
@@ -38,6 +44,16 @@ public class AppHelper {
     public static Boolean isPush=false;
     public static ArrayList<InfoStudent> arrayEvaluationInfo=new ArrayList<>();
     public static String selectedDate;
+    public static ArrayList<Allclass> SelectedClasses=new ArrayList<>();
+
+
+    public static ArrayList<Allclass> getSelectedClasses() {
+        return SelectedClasses;
+    }
+
+    public static void setSelectedClasses(ArrayList<Allclass> selectedClasses) {
+        SelectedClasses = selectedClasses;
+    }
 
     public static String getTeacherId() {
         return teacherId;
@@ -382,6 +398,20 @@ public class AppHelper {
             p.setMargins(leftInDp, topInDp, rightInDp, bottomInDp);
             view.requestLayout();
         }
+    }
+
+
+
+    public static void setRoundImage(final Context context, final ImageView img, String ImgUrl){
+        Glide.with(context).load(ImgUrl).asBitmap().centerCrop().placeholder(R.drawable.no_agent).dontAnimate().into(new BitmapImageViewTarget(img) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                img.setImageDrawable(circularBitmapDrawable);
+            }
+        });
     }
 
 

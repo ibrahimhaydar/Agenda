@@ -2,6 +2,7 @@ package com.mobiweb.ibrahim.agenda.activities.parents;
 
 
 
+import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr;
 import com.mobiweb.ibrahim.agenda.activities.ActivityBase;
 
 import android.app.Dialog;
@@ -68,6 +69,7 @@ public class Activity_student_attendance extends ActivityBase implements RVOnIte
     private int pageNumber = 1;
     private final int PAGE_SIZE = 20;
     private ArrayList<Attendance> arrayAttendance =new ArrayList<>();
+    private CustomTextViewAr tvAbsent,tvPresent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,6 +106,9 @@ public class Activity_student_attendance extends ActivityBase implements RVOnIte
                     Activity_student_attendance.super.onBackPressed();
             }
         });
+
+        tvAbsent=(CustomTextViewAr) findViewById(R.id.tvAbsent);
+        tvPresent=(CustomTextViewAr) findViewById(R.id.tvPresent);
     }
 
     private void logout(){
@@ -185,11 +190,14 @@ public class Activity_student_attendance extends ActivityBase implements RVOnIte
             GridLayoutManager glm = new GridLayoutManager(this, 1);
             rvAttendance.setLayoutManager(glm);
             rvAttendance.setAdapter(adapterActivities);
+            try{tvPresent.setText(attendance.getPresent_count());}catch (Exception e){}
+            try{tvAbsent.setText(attendance.getAbsence_count());}catch (Exception e){}
         }else {
             int position = adapterActivities.getattendances().size();
             adapterActivities.getattendances().addAll(arrayAttendance);
             adapterActivities.notifyItemInserted(position);
         }
+
         isLoading = attendance.getAttendance().isEmpty();
 
     }

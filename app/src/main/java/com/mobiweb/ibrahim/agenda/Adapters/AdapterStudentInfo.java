@@ -59,7 +59,7 @@ public class AdapterStudentInfo extends RecyclerView.Adapter<AdapterStudentInfo.
     protected class VHteacher_infoStudent extends RecyclerView.ViewHolder{
 
         private CustomTextView ctvEvaluation,ctvStudentName;
-        private CustomTextViewBold ctvCourseName;
+        private CustomTextView ctvCourseName;
 
 
 
@@ -67,7 +67,7 @@ public class AdapterStudentInfo extends RecyclerView.Adapter<AdapterStudentInfo.
             super(itemView);
             ctvEvaluation = (CustomTextView) itemView.findViewById(R.id.ctvEvaluation);
             ctvStudentName= (CustomTextView) itemView.findViewById(R.id.ctvStudentName);
-            ctvCourseName=(CustomTextViewBold)itemView.findViewById(R.id.ctvCourseName);
+            ctvCourseName=(CustomTextView)itemView.findViewById(R.id.ctvCourseName);
 
         }
 

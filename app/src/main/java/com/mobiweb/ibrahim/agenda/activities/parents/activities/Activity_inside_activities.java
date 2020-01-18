@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class Activity_inside_activities extends ActivityBase implements ViewPager.OnPageChangeListener,IFragmentImages {
     private CustomTextViewBold toolbarTitle;
     private ImageView ivBack,ivRight;
-    private String title;
+    private String title,withImage,arrayImage;
     private String description;
     private String date;
     private CustomTextViewBoldAr toolbarTitleAr;
@@ -53,6 +53,8 @@ public class Activity_inside_activities extends ActivityBase implements ViewPage
     private CustomTextView ctvdate;
     private CustomTextViewAr ctvdateAr;
     private boolean isPush=false;
+    private String pathImagesFolderName="";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,9 +71,11 @@ public class Activity_inside_activities extends ActivityBase implements ViewPage
         ivBack=(ImageView)findViewById(R.id.ivBack);
 
         if(getIntent().getStringExtra(AppConstants.INTENT_FROM).matches(AppConstants.INTENT_ACTIVITIES)) {
+            pathImagesFolderName="activities";
             toolbarTitle.setText(getString(R.string.activities));
             toolbarTitleAr.setText(getString(R.string.activitiesAr));
         }else {
+            pathImagesFolderName="announcement";
             toolbarTitle.setText(getString(R.string.announcement));
             toolbarTitleAr.setText(getString(R.string.announcementAr));
         }
@@ -91,13 +95,17 @@ public class Activity_inside_activities extends ActivityBase implements ViewPage
 
 
         title=getIntent().getStringExtra(AppConstants.TITLE);
+        arrayImage=getIntent().getStringExtra(AppConstants.ARRAY_IMAGES);
+        withImage=getIntent().getStringExtra(AppConstants.WITH_IMAGE);
         description=getIntent().getStringExtra(AppConstants.DESCRIPTION);
         date=getIntent().getStringExtra(AppConstants.DATE);
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
         imageUrl=getIntent().getStringArrayListExtra(AppConstants.HW_IMAGE);
         vpMedia = (ViewPager) findViewById(R.id.vpMedia);
-
-
+       if(imageUrl.size()>0) {
+           for (int i = 0; i < imageUrl.size(); i++)
+               Log.wtf("array_image", "notification" + imageUrl.get(i));
+       }
          if (AppHelper.isProbablyArabic(description)) {
              Log.wtf("description",description+" arabic");
              ctvdescriptionAr.setText(description);
@@ -165,7 +173,7 @@ public class Activity_inside_activities extends ActivityBase implements ViewPage
 try{
 
         if(!imageUrl.isEmpty()) {
-            AdapterImages adapterImages = new AdapterImages(imageUrl, this,"activities");
+            AdapterImages adapterImages = new AdapterImages(imageUrl, this,pathImagesFolderName);
             vpMedia.setAdapter(adapterImages);
             vpMedia.addOnPageChangeListener(this);
             dotscount = adapterImages.getCount();
@@ -233,7 +241,7 @@ try{
         i.putStringArrayListExtra(AppConstants.HW_IMAGE,imageUrl);
         i.putExtra(AppConstants.INTENT_FROM,"0");
         i.putExtra(AppConstants.IMAGE_POSITION, vpMedia.getCurrentItem());
-        i.putExtra(AppConstants.IMAGES_FOLDER,"activities");
+        i.putExtra(AppConstants.IMAGES_FOLDER,pathImagesFolderName);
         startActivity(i);
     }
 

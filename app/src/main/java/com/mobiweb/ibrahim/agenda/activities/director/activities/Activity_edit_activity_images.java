@@ -139,11 +139,11 @@ public class Activity_edit_activity_images extends ActivityBase implements RVOnI
                 showImagePopup(view);
             }
         });
-arrayImages=AppHelper.getActivityImages();
+       arrayImages=AppHelper.getActivityImages();
 
 
         rvPickedImages=(RecyclerView)findViewById(R.id.rvPickedImages);
-        adapterImages=new AdapterAddImages(arrayImages,this);
+        adapterImages=new AdapterAddImages(arrayImages,this,"activities");
         GridLayoutManager glm=new GridLayoutManager(this,4);
         rvPickedImages.setLayoutManager(glm);
         rvPickedImages.setAdapter(adapterImages);

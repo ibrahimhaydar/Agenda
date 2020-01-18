@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/gray_bg"
     android:layout_height="match_parent">
     <include layout="@layout/toolbar"/>
     <include layout="@layout/loading"/>
@@ -13,6 +14,8 @@
            <ScrollView android:layout_height="match_parent"
                xmlns:android="http://schemas.android.com/apk/res/android"  android:layout_width="match_parent"
                android:scrollbars="none"
+               android:layout_marginTop="80dp"
+
                >
 
            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,13 +23,14 @@
                android:orientation="vertical" android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:background="@color/gray_bg"
-               android:layout_marginTop="40dp"
+               android:layout_marginTop="15dp"
+               android:paddingBottom="30dp"
                >
 
                <LinearLayout
                    android:orientation="vertical" android:layout_width="match_parent"
                    android:layout_height="80dp"
-                   android:layout_marginTop="10dp"
+
                    android:layout_marginRight="18dp"
                    android:layout_marginLeft="18dp"
                    android:layout_gravity="center"
@@ -774,7 +778,7 @@
                                <ImageView
                                    android:layout_width="wrap_content"
                                    android:layout_height="wrap_content"
-                                   android:src="@drawable/ic_schedule"
+                                   android:src="@drawable/ic_teacher_schedule"
                                    android:layout_gravity="center"
                                    />
                            </LinearLayout>
@@ -796,7 +800,7 @@
                                        android:layout_height="match_parent"
                                        android:layout_centerVertical="true"
                                        android:layout_centerHorizontal="true"
-                                       android:background="@color/home_color_6"
+                                       android:background="@color/rose"
 
                                        >
                                        <LinearLayout
@@ -894,7 +898,7 @@
                                <ImageView
                                    android:layout_width="wrap_content"
                                    android:layout_height="wrap_content"
-                                   android:src="@drawable/ic_schedule"
+                                   android:src="@drawable/ic_grades"
                                    android:layout_gravity="center"
                                    />
                            </LinearLayout>
@@ -916,7 +920,7 @@
                                        android:layout_height="match_parent"
                                        android:layout_centerVertical="true"
                                        android:layout_centerHorizontal="true"
-                                       android:background="@color/home_color_6"
+                                       android:background="@color/main_green"
 
                                        >
                                        <LinearLayout
@@ -1015,7 +1019,7 @@
                                <ImageView
                                    android:layout_width="wrap_content"
                                    android:layout_height="wrap_content"
-                                   android:src="@drawable/ic_schedule"
+                                   android:src="@drawable/ic_attendance"
                                    android:layout_gravity="center"
                                    />
                            </LinearLayout>
@@ -1037,7 +1041,7 @@
                                        android:layout_height="match_parent"
                                        android:layout_centerVertical="true"
                                        android:layout_centerHorizontal="true"
-                                       android:background="@color/home_color_6"
+                                       android:background="@color/strong_rose"
 
                                        >
                                        <LinearLayout
@@ -1105,7 +1109,7 @@
                    android:layout_marginTop="10dp"
                    android:layout_marginRight="18dp"
                    android:layout_marginLeft="18dp"
-                   android:layout_marginBottom="40dp"
+
                    android:layout_gravity="center"
                    android:id="@+id/linearCardEvaluation"
                    android:gravity="center"
@@ -1135,7 +1139,7 @@
                                <ImageView
                                    android:layout_width="wrap_content"
                                    android:layout_height="wrap_content"
-                                   android:src="@drawable/ic_schedule"
+                                   android:src="@drawable/ic_evaluation"
                                    android:layout_gravity="center"
                                    />
                            </LinearLayout>
@@ -1157,7 +1161,7 @@
                                        android:layout_height="match_parent"
                                        android:layout_centerVertical="true"
                                        android:layout_centerHorizontal="true"
-                                       android:background="@color/home_color_6"
+                                       android:background="@color/navy"
 
                                        >
                                        <LinearLayout
@@ -1224,53 +1228,106 @@
            </ScrollView>
 
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="vertical"
-               android:id="@+id/linearChilds"
 
+           <LinearLayout
+               android:orientation="vertical" android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="10dp"
+               android:layout_marginRight="18dp"
+
+               android:layout_marginLeft="18dp"
+               android:layout_gravity="center"
+               android:gravity="center"
+               android:id="@+id/linearChilds"
                >
+
+               <android.support.v7.widget.CardView
+                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+
+                   app:cardUseCompatPadding="true"
+                   app:cardElevation="4dp"
+                   app:cardCornerRadius="3dp" >
+
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:background="@color/gray_bg"
+                 >
                <RelativeLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content">
-               <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+               <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold
                    android:layout_width="match_parent"
-                   android:layout_height="40dp"
+                   android:layout_height="50dp"
                    android:id="@+id/ctvSelectedChild"
-                   android:textColor="@color/white"
+                   android:textColor="@color/black"
                    android:text="Ibrahim Haydar"
+                   android:textSize="18sp"
+                   android:layout_marginTop="4dp"
                    android:layout_centerVertical="true"
                    android:layout_centerHorizontal="true"
-                   android:background="@color/colorPrimary"
+                   android:background="@color/gray_bg"
                    android:layout_gravity="center"
                    android:gravity="center"
                    />
+
+
+                   <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:id="@+id/ctvSelectedChildAr"
+                       android:textColor="@color/black"
+                       android:text="Ibrahim Haydar"
+                       android:textSize="20sp"
+                       android:layout_marginTop="4dp"
+                       android:layout_centerVertical="true"
+                       android:layout_centerHorizontal="true"
+                       android:background="@color/gray_bg"
+                       android:layout_gravity="center"
+                       android:gravity="center"
+                       />
+
                    <ImageView
-                       android:layout_width="20dp"
-                       android:layout_height="20dp"
+                       android:layout_width="30dp"
+                       android:layout_height="30dp"
                        android:layout_centerVertical="true"
                        android:layout_alignParentRight="true"
                        android:layout_alignParentEnd="true"
                        android:layout_marginRight="10dp"
+                       android:background="@drawable/circle_arrow"
                        android:id="@+id/ivArrowDown"
                        android:layout_marginEnd="10dp"
+                       android:paddingBottom="5dp"
+                       android:paddingStart="2dp"
+                       android:paddingLeft="2dp"
                        android:src="@drawable/arrow_down_white"
                        />
                </RelativeLayout>
-               <android.support.v7.widget.CardView
+              <!-- <android.support.v7.widget.CardView
                    xmlns:app="http://schemas.android.com/apk/res-auto"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    app:cardUseCompatPadding="true"
+                   android:background="@color/gray_bg"
                    app:cardElevation="2dp"
-                   app:cardCornerRadius="3dp" >
+                   app:cardCornerRadius="3dp" >-->
                <android.support.v7.widget.RecyclerView
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:id="@+id/rvChilds"
+                   android:background="@color/gray_bg"
                    />
+           <!--    </android.support.v7.widget.CardView>-->
+
+             </LinearLayout>
+
+
                </android.support.v7.widget.CardView>
+
            </LinearLayout>
 
        </RelativeLayout>

@@ -91,7 +91,7 @@ public class Activity_attendance extends ActivityBase implements RGOnChangeListe
     private CustomTextViewBold ctvdate;
     public static final String[] MONTHS = {"كانون الثاني", "شباط", "آذار", "نيسان", "أيار", "حزيران", "تموز", "آب", "أيلول", "تشرين الأول", "تشرين الثاني", "كانون الأول"};
     private String displayDate="اليوم";
-    private Button btSelectAll;
+    private LinearLayout btSelectAll;
     private Date DateNow,SelectedDate;
 
 
@@ -169,10 +169,10 @@ public class Activity_attendance extends ActivityBase implements RGOnChangeListe
         ctvdate=(CustomTextViewBold)findViewById(R.id.ctvDate);
         ctvdate.setText("اليوم");
         activity=this;
-        cardFilter=(CardView)findViewById(R.id.cardFilter);
+
         rvAttendance=(RecyclerView)findViewById(R.id.rvAttendance);
         btAddEdit=(Button)findViewById(R.id.btAddEdit);
-        btSelectAll=(Button)findViewById(R.id.btSelectAll);
+        btSelectAll=(LinearLayout)findViewById(R.id.linearSelectAll);
 
     }
 

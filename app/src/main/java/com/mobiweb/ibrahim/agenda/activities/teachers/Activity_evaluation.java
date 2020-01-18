@@ -29,6 +29,7 @@ import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold;
 import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr;
 import com.mobiweb.ibrahim.agenda.R;
 import com.mobiweb.ibrahim.agenda.activities.Activity_main;
+import com.mobiweb.ibrahim.agenda.activities.director.Activity_direction_home;
 import com.mobiweb.ibrahim.agenda.activities.director.agenda.Activity_all_teachers;
 import com.mobiweb.ibrahim.agenda.models.Student;
 import com.mobiweb.ibrahim.agenda.models.json.JsonClassStudents;
@@ -67,18 +68,21 @@ public class Activity_evaluation extends ActivityBase implements RVOnItemClickLi
     private int mYear, mMonth, mDay, mHour, mMinute;
     private String selectedDate;
 
-    private Dialog studentsDialog;
+    private Dialog studentsDialog,filterDialog;
 
-    private LinearLayout linearSelectFilter;
-    private CustomTextView ctvSelectedFilter,ctvFilterAll,ctvFilterStudent,ctvFilterDate;
-    private CardView cardFilter;
+
+
+    private CustomTextView ctvSelectedFilter, ctvFilterAll,ctvFilterStudent,ctvFilterDate;
+
+
 
     private RecyclerView rvStudents;
     private  LinearLayout linearProgressDialog;
     private Activity activity;
     private AdapterStudent adapterStudent;
-    private ImageView ivAdd;
-    private LinearLayout linearFilterOuter;
+    private LinearLayout linearAdd;
+
+
 
 
 
@@ -95,29 +99,43 @@ public class Activity_evaluation extends ActivityBase implements RVOnItemClickLi
             }
         });
         ivRight=(ImageView)findViewById(R.id.ivRight);
-        ivRight.setImageResource(R.drawable.home);
+
+
 
 
         ivRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION))
-                    startActivity(new Intent(Activity_evaluation.this,Activity_all_teachers.class));
-                else
-                    startActivity(new Intent(Activity_evaluation.this,Activity_teacher.class));
-                finish();
+                if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_PARENT)){
+                    startActivity(new Intent(Activity_evaluation.this, Activity_direction_home.class));
+                    finish();
+                }
+
+                else {
+                    openFilterDialog();
+                  /*  if(isFilterOpen) {
+                        cardFilter.setVisibility(View.GONE);
+                        isFilterOpen=false;
+                    }else {
+                        cardFilter.setVisibility(View.VISIBLE);
+                        isFilterOpen=true;
+                    }*/
+                }
+
             }
         });
         toolbarTitle.setText(getString(R.string.evaluation));
         toolbarTitleAr.setText(getString(R.string.evaluation_ar));
 
        if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_PARENT)){
-           ivAdd.setVisibility(View.GONE);
-           linearFilterOuter.setVisibility(View.GONE);
+           linearAdd.setVisibility(View.GONE);
+           ctvSelectedFilter.setVisibility(View.VISIBLE);
+           ivRight.setImageResource(R.drawable.home);
            retreiveEvaluation(AppConstants.FILTER_STUDENT_PARENT,AppHelper.getStudentId());
        }else {
-           linearFilterOuter.setVisibility(View.VISIBLE);
-           ivAdd.setVisibility(View.VISIBLE);
+           ivRight.setImageResource(R.drawable.filter_white);
+           ctvSelectedFilter.setVisibility(View.GONE);
+           linearAdd.setVisibility(View.VISIBLE);
            retreiveEvaluation(AppConstants.FILTER_ALL,"");
        }
 
@@ -132,8 +150,8 @@ public class Activity_evaluation extends ActivityBase implements RVOnItemClickLi
         ivBack=(ImageView)findViewById(R.id.ivBack);
         ivRight=(ImageView)findViewById(R.id.ivRight);
         progress=(LinearLayout)findViewById(R.id.progress);
-        ivAdd=(ImageView)findViewById(R.id.ivAdd);
-        ivAdd.setOnClickListener(new View.OnClickListener() {
+        linearAdd=(LinearLayout) findViewById(R.id.linearAdd);
+        linearAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Activity_evaluation.this,Activity_add_evaluation.class));
@@ -144,57 +162,10 @@ public class Activity_evaluation extends ActivityBase implements RVOnItemClickLi
         activity=this;
 
 
-        linearSelectFilter=(LinearLayout)findViewById(R.id.linearSelectFilter);
-        linearFilterOuter=(LinearLayout)findViewById(R.id.linearFilterOuter);
+
+
         ctvSelectedFilter=(CustomTextView)findViewById(R.id.ctvSelectedFilter);
-        ctvFilterAll=(CustomTextView)findViewById(R.id.ctvFilterAll);
-        ctvFilterStudent=(CustomTextView)findViewById(R.id.ctvFilterStudent);
-        ctvFilterDate=(CustomTextView)findViewById(R.id.ctvFilterDate);
-        cardFilter=(CardView)findViewById(R.id.cardFilter);
 
-        linearSelectFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isFilterOpen) {
-                    cardFilter.setVisibility(View.GONE);
-                    isFilterOpen=false;
-                }else {
-                    cardFilter.setVisibility(View.VISIBLE);
-                    isFilterOpen=true;
-                }
-            }
-        });
-
-
-        ctvFilterAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cardFilter.setVisibility(View.GONE);
-                isFilterOpen=false;
-                ctvSelectedFilter.setText("ALL");
-                retreiveEvaluation(AppConstants.FILTER_ALL,"");
-            }
-        });
-
-        ctvFilterStudent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cardFilter.setVisibility(View.GONE);
-                isFilterOpen=false;
-                ctvSelectedFilter.setText("Student");
-                popupStudents();
-            }
-        });
-
-        ctvFilterDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cardFilter.setVisibility(View.GONE);
-                isFilterOpen=false;
-                ctvSelectedFilter.setText("Date");
-                showDatePicker();
-            }
-        });
 
     }
 
@@ -330,12 +301,59 @@ public class Activity_evaluation extends ActivityBase implements RVOnItemClickLi
     private void popupStudents(){
 
         studentsDialog = new Dialog(this);
-        studentsDialog.setContentView(R.layout.popup_courses);
-        rvStudents=(RecyclerView) studentsDialog.findViewById(R.id.rvCourses);
+        studentsDialog.setContentView(R.layout.popup_choose_student);
+        rvStudents=(RecyclerView) studentsDialog.findViewById(R.id.rvStudents);
         linearProgressDialog=(LinearLayout)studentsDialog.findViewById(R.id.linearProgressDialog);
         linearProgressDialog.setVisibility(View.VISIBLE);
         studentsDialog.show();
         retreiveClassStudents();
+        // studentsDialog.setCanceledOnTouchOutside(false);
+
+    }
+
+
+
+    private void openFilterDialog(){
+
+        filterDialog = new Dialog(this);
+        filterDialog.setContentView(R.layout.popup_filter_avaluation);
+        rvStudents=(RecyclerView) filterDialog.findViewById(R.id.rvStudents);
+        ctvFilterAll=(CustomTextView)filterDialog.findViewById(R.id.ctvFilterAll);
+        ctvFilterStudent=(CustomTextView)filterDialog.findViewById(R.id.ctvFilterStudent);
+        ctvFilterDate=(CustomTextView)filterDialog.findViewById(R.id.ctvFilterDate);
+
+        ctvFilterAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterDialog.dismiss();
+                isFilterOpen=false;
+                ctvSelectedFilter.setText("ALL");
+                retreiveEvaluation(AppConstants.FILTER_ALL,"");
+            }
+        });
+
+        ctvFilterStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterDialog.dismiss();
+                isFilterOpen=false;
+                ctvSelectedFilter.setText("Student");
+                popupStudents();
+            }
+        });
+
+        ctvFilterDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterDialog.dismiss();
+                isFilterOpen=false;
+                ctvSelectedFilter.setText("Date");
+                showDatePicker();
+            }
+        });
+
+        filterDialog.show();
+
         // studentsDialog.setCanceledOnTouchOutside(false);
 
     }

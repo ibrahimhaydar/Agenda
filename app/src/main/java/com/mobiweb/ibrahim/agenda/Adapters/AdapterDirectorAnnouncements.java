@@ -5,10 +5,12 @@ package com.mobiweb.ibrahim.agenda.Adapters;
  */
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.mobiweb.ibrahim.agenda.Adapters.interfaces.RVOnItemClickListener;
@@ -19,6 +21,7 @@ import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr;
 import com.mobiweb.ibrahim.agenda.R;
 import com.mobiweb.ibrahim.agenda.models.entities.Announcements;
 import com.mobiweb.ibrahim.agenda.utils.AppHelper;
+import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 
 import java.util.ArrayList;
 
@@ -51,7 +54,7 @@ public class AdapterDirectorAnnouncements extends RecyclerView.Adapter<AdapterDi
         if(isDirection)
            return new VHAnnouncements(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_director_announcement, parent, false));
         else
-            return new VHAnnouncements(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_annnouncement, parent, false));
+           return new VHAnnouncements(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_annnouncement, parent, false));
 
 
     }
@@ -60,6 +63,26 @@ public class AdapterDirectorAnnouncements extends RecyclerView.Adapter<AdapterDi
     public void onBindViewHolder(VHAnnouncements holder, int position) {
 
 
+        try{
+            Log.wtf("imagePath", RetrofitClient.BASE_URL+"announcement/"+activities.get(position).getImages().get(0).getImageName());
+            // holder.ivAnnouncement.setImageResource(R.drawable.logo_new);
+            if(activities.get(position).getImages().size()>0) {
+                AppHelper.setImage(holder.itemView.getContext(), holder.ivAnnouncement, RetrofitClient.BASE_URL + "announcement/" + activities.get(position).getImages().get(0).getImageName());
+                holder.ivAnnouncement.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
+            else {
+                holder.ivAnnouncement.setBackgroundColor(holder.itemView.getResources().getColor(R.color.gray_video));
+                holder.ivAnnouncement.setImageResource(R.drawable.logo_new);
+                holder.ivAnnouncement.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            }
+        }catch (Exception e){
+            holder.ivAnnouncement.setBackgroundColor(holder.itemView.getResources().getColor(R.color.gray_video));
+            holder.ivAnnouncement.setImageResource(R.drawable.logo_new);
+            holder.ivAnnouncement.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        }
+        
+        
+        
         try {
             if (isProbablyArabic(activities.get(position).getDescription())) {
                 try {
@@ -152,7 +175,7 @@ public class AdapterDirectorAnnouncements extends RecyclerView.Adapter<AdapterDi
         private Button btEditAlbum,btDelete;
         private LinearLayout linearEditAlbum;
         private LinearLayout linearButtons;
-
+        private ImageView ivAnnouncement;
 
         public VHAnnouncements(View itemView) {
             super(itemView);
@@ -164,7 +187,7 @@ public class AdapterDirectorAnnouncements extends RecyclerView.Adapter<AdapterDi
             dateAr = (CustomTextViewAr) itemView.findViewById(R.id.ctvDateAr);
             dateAr.setTypeface(AppHelper.getTypeFace(itemView.getContext()));
 
-
+            ivAnnouncement=(ImageView)itemView.findViewById(R.id.ivAnnouncement);
 
             title= (CustomTextViewBold) itemView.findViewById(R.id.ctvTitle);
             titleAr=(CustomTextViewBoldAr)itemView.findViewById(R.id.ctvTitleAr);

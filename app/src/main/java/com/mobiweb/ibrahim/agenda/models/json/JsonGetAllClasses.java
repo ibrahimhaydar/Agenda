@@ -12,6 +12,12 @@ import java.util.ArrayList;
 
 public class JsonGetAllClasses {
 
+    @SerializedName("status")
+    @Expose
+    private String status;
+
+
+
     @SerializedName("Allclasses")
     @Expose
     private ArrayList<Allclass> allclasses = null;
@@ -24,4 +30,12 @@ public class JsonGetAllClasses {
         this.allclasses = allclasses;
     }
 
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

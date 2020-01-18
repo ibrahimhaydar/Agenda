@@ -56,6 +56,9 @@ public class AppConstants {
     public static final String DESCRIPTION = "description";
     public static final String ID = "id";
 
+    public static final String WITH_IMAGE = "with_image";
+    public static final String ARRAY_IMAGES = "array_images";
+
 
     public static final String SHARED_USERNAME = "shared_username";
     public static final String SHARED_PASSWORD = "shared_password";
@@ -102,4 +105,7 @@ public class AppConstants {
     public static final String FILTER_STUDENT = "2";
     public static final String FILTER_DATE = "3";
     public static final String FILTER_STUDENT_PARENT = "4";
+
+    public static final String IS_FILTER = "is_filter";
+    public static final String ARRAY_CLASSES = "array_classes";
 }

@@ -9,26 +9,33 @@
     <include layout="@layout/toolbar"/>
     <include layout="@layout/loading"/>
 
+
+
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/rvGrades"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+
         android:layout_gravity="center"
         android:gravity="center"
         >
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
-            android:text="Add Grades"
+            android:text="Add"
             android:paddingBottom="10dp"
             android:id="@+id/btAddEdit"
             android:layout_gravity="center"
@@ -42,7 +49,7 @@
             />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -61,4 +68,8 @@
             android:textColor="@color/white"
             />
     </LinearLayout>
+
+
+
+
 </LinearLayout>

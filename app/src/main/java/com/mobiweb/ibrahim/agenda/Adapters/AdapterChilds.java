@@ -11,14 +11,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.mobiweb.ibrahim.agenda.Adapters.interfaces.RVOnItemClickListener;
 import com.mobiweb.ibrahim.agenda.Custom.CustomTextView;
+import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr;
+import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr;
 import com.mobiweb.ibrahim.agenda.Custom.RtlGridLayoutManager;
 import com.mobiweb.ibrahim.agenda.R;
 import com.mobiweb.ibrahim.agenda.models.entities.Child;
+import com.mobiweb.ibrahim.agenda.models.entities.Image;
 import com.mobiweb.ibrahim.agenda.models.entities.Info;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
+import com.mobiweb.ibrahim.agenda.utils.AppHelper;
 
 import java.util.ArrayList;
 
@@ -44,7 +49,13 @@ public class AdapterChilds extends RecyclerView.Adapter<AdapterChilds.VHAllclass
     @Override
     public void onBindViewHolder(VHAllclass holder, int position) {
         holder.ctvChildName.setText(childs.get(position).getChildName());
+        try{
+            holder.ctvBirthday.setText(childs.get(position).getBirth_date());
+        }catch (Exception e){}
 
+        try{
+            AppHelper.setRoundImage(holder.itemView.getContext(),holder.ivStudent,childs.get(position).getImage());
+        }catch (Exception e){}
 
     }
 
@@ -64,13 +75,16 @@ public class AdapterChilds extends RecyclerView.Adapter<AdapterChilds.VHAllclass
 
     protected class VHAllclass extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private CustomTextView ctvChildName;
-
+        private CustomTextViewBoldAr ctvChildName;
+        private CustomTextViewAr ctvBirthday;
+        private ImageView ivStudent;
 
 
         public VHAllclass(View itemView) {
             super(itemView);
-            ctvChildName = (CustomTextView) itemView.findViewById(R.id.ctvChildName);
+            ctvChildName = (CustomTextViewBoldAr) itemView.findViewById(R.id.ctvChildName);
+            ctvBirthday = (CustomTextViewAr) itemView.findViewById(R.id.ctvBirthday);
+            ivStudent = (ImageView) itemView.findViewById(R.id.ivStudent);
             itemView.setOnClickListener(this);
         }
 

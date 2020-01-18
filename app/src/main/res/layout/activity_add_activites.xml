@@ -111,7 +111,37 @@
                         android:background="@drawable/edit_text_border"
                         />
 </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearFilterClasses"
+                        android:orientation="vertical"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone"
 
+                        >
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:id="@+id/rgFilter"
+                            >
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="All Classes"
+                                android:id="@+id/rdAll"
+                                />
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Filter Classes"
+                                android:id="@+id/rdFilter"
+                                />
+                        </RadioGroup>
+
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -258,31 +288,44 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/linearFilterClasses"
-                        android:orientation="vertical"
                         android:layout_marginTop="20dp"
+                         android:id="@+id/linearPickedImage"
+                        android:visibility="gone"
+                        android:background="@drawable/dash_border"
+                        android:layerType="software">
 
-                        >
-
-                        <RadioGroup
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:id="@+id/rgFilter"
-                            >
-                            <RadioButton
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="1dp"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingBottom="20dp"
+                            android:paddingTop="20dp">
+
+                            <ImageView
+                                android:id="@+id/ivPickImage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="All Classes"
-                                android:id="@+id/rdAll"
-                                />
-                            <RadioButton
-                                android:layout_width="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/pick_image" />
+                            <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Filter Classes"
-                                android:id="@+id/rdFilter"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:gravity="center"
+                                android:text="Press Pick to upload image" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/rvPickedImages"
                                 />
-                        </RadioGroup>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 

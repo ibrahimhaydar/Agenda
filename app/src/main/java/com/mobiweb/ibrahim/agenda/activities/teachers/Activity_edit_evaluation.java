@@ -121,7 +121,7 @@ public class Activity_edit_evaluation extends ActivityBase implements EditTextOn
 
 
 
-        btAddEdit.setText("Edit Evaluation");
+        btAddEdit.setText("Edit");
         btRemove.setVisibility(View.VISIBLE);
         btRemove.setOnClickListener(new View.OnClickListener() {
             @Override

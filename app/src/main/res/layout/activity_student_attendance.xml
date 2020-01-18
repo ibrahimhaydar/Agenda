@@ -17,16 +17,86 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
-
+            android:orientation="vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
 
             >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+
+                >
+                <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvAbsent"
+                    android:padding="2dp"
+
+                    />
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_gravity="end"
+                android:gravity="end"
+
+                android:text="الغياب: "
+                />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+
+                >
+                <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvPresent"
+                    android:padding="2dp"
+
+                    />
+                <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:text="الحضور :"
+                    />
+
+
+            </LinearLayout>
+            </LinearLayout>
+
+
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rvAttendance"
+                android:layout_margin="15dp"
                 />
 
 

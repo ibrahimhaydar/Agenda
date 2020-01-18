@@ -39,11 +39,15 @@ public class AdapterPopupClasses extends RecyclerView.Adapter<AdapterPopupClasse
     public void onBindViewHolder(final VHAllclass holder, final int position) {
         holder.ClassName.setText(classes.get(position).getClassName());
 
-        if(classes.get(position).getSelected())
-            holder.btSelect.setBackgroundResource(R.drawable.border_selected);
-        else
+        if(classes.get(position).getSelected()!=null) {
+            if (classes.get(position).getSelected())
+                holder.btSelect.setBackgroundResource(R.drawable.border_selected);
+            else
+                holder.btSelect.setBackgroundResource(R.drawable.border_table);
+        }else {
+            classes.get(position).setSelected(false);
             holder.btSelect.setBackgroundResource(R.drawable.border_table);
-
+        }
 
 
 

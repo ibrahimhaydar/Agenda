@@ -23,11 +23,13 @@ public class AdapterAddImages extends RecyclerView.Adapter<AdapterAddImages.VHPi
 
     private ArrayList<Image> images;
     private RVOnItemClickListener itemClickListener;
+    private String path;
 
 
-    public AdapterAddImages(ArrayList<Image> images, RVOnItemClickListener itemClickListener) {
+    public AdapterAddImages(ArrayList<Image> images, RVOnItemClickListener itemClickListener,String path) {
         this.images = images;
         this.itemClickListener = itemClickListener;
+        this.path=path;
     }
 
     @Override
@@ -48,9 +50,9 @@ if(new File(images.get(position).getImageName()).exists()){
 
 }else {
 try {
-    Log.wtf("imagePath: ",RetrofitClient.BASE_URL + "activities/" + images.get(position).getImageName());
+    Log.wtf("imagePath: ",RetrofitClient.BASE_URL + path+"/" + images.get(position).getImageName());
     Glide.with(holder.itemView.getContext())
-            .load(RetrofitClient.BASE_URL + "activities/" + images.get(position).getImageName())
+            .load(RetrofitClient.BASE_URL + path+"/" + images.get(position).getImageName())
             .diskCacheStrategy(DiskCacheStrategy.ALL).dontAnimate()
             .into(holder.ivPickedImage);
 }catch (Exception e2) {

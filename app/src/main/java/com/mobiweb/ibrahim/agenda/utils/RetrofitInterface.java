@@ -29,6 +29,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -135,6 +136,11 @@ public interface RetrofitInterface {
     @POST("edit_announcement.php")
     Call<Result> editAnnouncement(@Body JsonParameters parameters);
 
+    @Multipart
+    @POST("edit_announcement_image.php")
+    Call<Result> editAnnouncementImage(@Part List<MultipartBody.Part> files,
+                                       @Part("json") RequestBody parameters
+    );
 
 
         @Multipart
@@ -145,10 +151,10 @@ public interface RetrofitInterface {
 
 
     @Multipart
-    @POST("add_announcement_images.php")
+    @POST("add_announcement_image.php")
     Call<Result> addAnnouncementImages(
             @Part List<MultipartBody.Part> files,
-            @Body JsonParameters parameters
+            @Part("json") RequestBody parameters
             );
 
 

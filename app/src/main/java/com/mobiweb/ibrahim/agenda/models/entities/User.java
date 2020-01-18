@@ -41,6 +41,23 @@ public class User {
     @Expose
     private String schedule_teacher;
 
+    @SerializedName("enable_grade")
+    @Expose
+    private String enable_grade;
+
+    @SerializedName("enable_attendance")
+    @Expose
+    private String enable_attendance;
+
+    @SerializedName("enable_evaluation")
+    @Expose
+    private String enable_evaluation;
+
+
+
+
+
+
     @SerializedName("childs")
     @Expose
     private ArrayList<Child> childs = null;
@@ -117,4 +134,28 @@ public class User {
         this.childs = childs;
     }
 
+
+    public String getEnable_grade() {
+        return enable_grade;
+    }
+
+    public void setEnable_grade(String enable_grade) {
+        this.enable_grade = enable_grade;
+    }
+
+    public String getEnable_attendance() {
+        return enable_attendance;
+    }
+
+    public void setEnable_attendance(String enable_attendance) {
+        this.enable_attendance = enable_attendance;
+    }
+
+    public String getEnable_evaluation() {
+        return enable_evaluation;
+    }
+
+    public void setEnable_evaluation(String enable_evaluation) {
+        this.enable_evaluation = enable_evaluation;
+    }
 }

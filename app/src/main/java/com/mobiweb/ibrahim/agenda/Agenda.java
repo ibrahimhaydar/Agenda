@@ -6,8 +6,11 @@ import android.content.SharedPreferences;
 import android.support.multidex.MultiDex;
 
 import com.google.gson.Gson;
+import com.mobiweb.ibrahim.agenda.models.entities.Allclass;
 import com.mobiweb.ibrahim.agenda.models.entities.User;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
+
+import java.util.ArrayList;
 
 /**
  * Created by ibrahim on 11/25/2017.
@@ -16,13 +19,14 @@ import com.mobiweb.ibrahim.agenda.utils.AppConstants;
 public class Agenda extends Application {
 
     public String cashedUsername,cashedPassword,cashedType,loginId,loginType;
-
+    public static ArrayList<Allclass> tempAdapterClasses =new ArrayList<Allclass>();
 
     @Override
     public void onCreate() {
         super.onCreate();
 
     }
+
 
 
     public User getCashedUser (){

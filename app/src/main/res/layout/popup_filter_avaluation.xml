@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+
+    >
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      >
+
+      <LinearLayout
+          xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:orientation="vertical"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:layout_marginTop="5dp"
+          >
+
+          <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+              android:layout_width="wrap_content"
+              android:layout_height="49dp"
+              android:id="@+id/ctvFilterAll"
+              android:text="All"
+              android:paddingTop="8dp"
+              android:textColor="@color/colorPrimary"
+              android:paddingBottom="8dp"
+              android:layout_gravity="center"
+              android:gravity="center"
+
+              />
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginLeft="12dp"
+              android:layout_marginRight="12dp"
+              android:id="@+id/separator"
+              android:background="@color/colorPrimary"/>
+
+      </LinearLayout>
+
+
+      <LinearLayout
+          xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:orientation="vertical"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:layout_marginTop="5dp"
+          >
+
+          <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+              android:layout_width="wrap_content"
+              android:layout_height="49dp"
+              android:paddingTop="8dp"
+              android:id="@+id/ctvFilterStudent"
+              android:text="Student"
+              android:textColor="@color/colorPrimary"
+              android:paddingBottom="8dp"
+              android:layout_gravity="center"
+              android:gravity="center"
+
+              />
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginLeft="12dp"
+              android:layout_marginRight="12dp"
+              android:background="@color/colorPrimary"/>
+
+      </LinearLayout>
+      <LinearLayout
+          xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:orientation="vertical"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:layout_marginTop="5dp"
+          >
+
+          <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+              android:layout_width="wrap_content"
+              android:layout_height="49dp"
+              android:id="@+id/ctvFilterDate"
+              android:text="Date"
+              android:paddingTop="8dp"
+              android:textColor="@color/colorPrimary"
+              android:paddingBottom="8dp"
+              android:layout_gravity="center"
+              android:gravity="center"
+
+              />
+
+
+      </LinearLayout>
+
+  </LinearLayout>
+
+</RelativeLayout>

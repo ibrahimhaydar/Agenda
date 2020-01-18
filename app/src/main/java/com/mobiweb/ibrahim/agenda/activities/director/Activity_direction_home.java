@@ -69,7 +69,8 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
     private ImageView ivArrowDown;
     private RecyclerView rvChilds;
     private AdapterChilds adapterChilds;
-    private CustomTextView ctvSelectedChild;
+    private CustomTextViewBold ctvSelectedChild;
+    private CustomTextViewBoldAr ctvSelectedChildAr;
     private String SelectedChildId,selectedChildClass;
     private boolean isRvChildOpen=false;
     private User cachedUser;
@@ -95,7 +96,10 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
         linearChilds=(LinearLayout)findViewById(R.id.linearChilds) ;
         ivArrowDown=(ImageView)findViewById(R.id.ivArrowDown);
         rvChilds=(RecyclerView)findViewById(R.id.rvChilds);
-        ctvSelectedChild=(CustomTextView)findViewById(R.id.ctvSelectedChild);
+        ctvSelectedChild=(CustomTextViewBold) findViewById(R.id.ctvSelectedChild);
+        ctvSelectedChildAr=(CustomTextViewBoldAr) findViewById(R.id.ctvSelectedChildAr);
+        ctvSelectedChildAr.setVisibility(View.GONE);
+        ctvSelectedChild.setVisibility(View.VISIBLE);
         progress=(LinearLayout)findViewById(R.id.progress);
         toolbarTitle=(CustomTextViewBold)findViewById(R.id.toolbarTitle);
         toolbarTitleAr=(CustomTextViewBoldAr)findViewById(R.id.toolbarTitleAr);
@@ -314,15 +318,48 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
 
         if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_PARENT)) {
             setChildsList();
+            checkStudentPermissions();
         }else {
             cachedUser=((Agenda)getApplication()).getCashedUser();
             ivArrowDown.setVisibility(View.GONE);
             ctvSelectedChild.setText(((Agenda)getApplication()).getCashedUsername());
+            ctvSelectedChildAr.setText(((Agenda)getApplication()).getCashedUsername());
         }
     }
 
+
+
+    private void checkStudentPermissions(){
+        if(cachedUser.getEnable_attendance().matches("1"))
+            linearCardAttendance.setVisibility(View.VISIBLE);
+        else
+            linearCardAttendance.setVisibility(View.GONE);
+
+        if(cachedUser.getEnable_evaluation().matches("1"))
+            linearCardEvaluation.setVisibility(View.VISIBLE);
+        else
+            linearCardEvaluation.setVisibility(View.GONE);
+
+        if(cachedUser.getEnable_grade().matches("1"))
+            linearCardGrades.setVisibility(View.VISIBLE);
+        else
+            linearCardGrades.setVisibility(View.GONE);
+    }
+
+
+
     private void setChildsList(){
          cachedUser=((Agenda)getApplication()).getCashedUser();
+        if(AppHelper.isProbablyArabic(cachedUser.getChilds().get(0).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName())) {
+            ctvSelectedChildAr.setVisibility(View.VISIBLE);
+            ctvSelectedChild.setVisibility(View.GONE);
+
+        }else {
+            ctvSelectedChildAr.setVisibility(View.GONE);
+            ctvSelectedChild.setVisibility(View.VISIBLE);
+        }
+
+
         if(cachedUser.getChilds().size()>1){
             rvChilds.setVisibility(View.GONE);
 
@@ -333,6 +370,8 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
                     position=i;
             }
             ctvSelectedChild.setText(cachedUser.getChilds().get(position).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
+            ctvSelectedChildAr.setText(cachedUser.getChilds().get(position).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
+
             SelectedChildId = cachedUser.getChilds().get(position).getIdChild();
             selectedChildClass=cachedUser.getChilds().get(position).getClassName();
             AppHelper.setId_class(cachedUser.getChilds().get(position).getIdClass());
@@ -358,6 +397,22 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
 
                 }
             });
+
+
+            ctvSelectedChildAr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(isRvChildOpen){
+                        rvChilds.setVisibility(View.GONE);
+                        isRvChildOpen=false;
+                    }else {
+                        rvChilds.setVisibility(View.VISIBLE);
+                        isRvChildOpen=true;
+                    }
+
+                }
+            });
+
         }else if(cachedUser.getChilds().size()==1) {
             rvChilds.setVisibility(View.GONE);
 
@@ -368,6 +423,8 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
                        position=i;
                }
                ctvSelectedChild.setText(cachedUser.getChilds().get(position).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
+               ctvSelectedChildAr.setText(cachedUser.getChilds().get(position).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
+
                SelectedChildId = cachedUser.getChilds().get(position).getIdChild();
                selectedChildClass=cachedUser.getChilds().get(position).getClassName();
                AppHelper.setId_class(cachedUser.getChilds().get(position).getIdClass());
@@ -376,6 +433,8 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
 
            }else {
                ctvSelectedChild.setText(cachedUser.getChilds().get(0).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
+               ctvSelectedChildAr.setText(cachedUser.getChilds().get(0).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
+
                SelectedChildId = cachedUser.getChilds().get(0).getIdChild();
                selectedChildClass=cachedUser.getChilds().get(0).getClassName();
                AppHelper.setId_class(cachedUser.getChilds().get(0).getIdClass());
@@ -444,6 +503,7 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
         AppHelper.setId_section(cachedUser.getChilds().get(position).getIdSection());
         rvChilds.setVisibility(View.GONE);
         ctvSelectedChild.setText(adapterChilds.getChilds().get(position).getChildName() +" "+ cachedUser.getFatherName() +" "+ cachedUser.getFatherLastName());
+        ctvSelectedChildAr.setText(adapterChilds.getChilds().get(position).getChildName() +" "+ cachedUser.getFatherName() +" "+ cachedUser.getFatherLastName());
 
     }
 }

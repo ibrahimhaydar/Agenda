@@ -7,7 +7,7 @@ package com.mobiweb.ibrahim.agenda.models.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Allclass {
+public class Allclass implements Cloneable {
 
     @SerializedName("id_class")
     @Expose
@@ -56,4 +56,25 @@ public class Allclass {
     public void setSelected(Boolean selected) {
         isSelected = selected;
     }
+
+    public Allclass(String idClass, String className, String idSection, Boolean isSelected) {
+        this.idClass = idClass;
+        this.className = className;
+        this.idSection = idSection;
+        this.isSelected = isSelected;
+    }
+
+
+    @Override
+    public Allclass clone() {
+        Allclass clone = null;
+
+    try{
+        clone = (Allclass) super.clone();
+    }
+    catch(CloneNotSupportedException e){
+        throw new RuntimeException(e);
+    }
+    return clone;
+       }
 }

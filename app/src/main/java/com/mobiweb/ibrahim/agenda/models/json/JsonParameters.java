@@ -5,6 +5,7 @@ import com.mobiweb.ibrahim.agenda.models.entities.Evaluation;
 import com.mobiweb.ibrahim.agenda.models.entities.InfoStudent;
 import com.mobiweb.ibrahim.agenda.models.entities.PostAttendance;
 import com.mobiweb.ibrahim.agenda.models.entities.PostClasses;
+import com.mobiweb.ibrahim.agenda.models.entities.PostDeletedImages;
 import com.mobiweb.ibrahim.agenda.models.entities.PostEvaluation;
 import com.mobiweb.ibrahim.agenda.models.entities.PostGrades;
 import com.mobiweb.ibrahim.agenda.models.entities.ScheduleExamPost;
@@ -161,9 +162,16 @@ public class JsonParameters {
 
     @SerializedName("arrayClasses")
     private ArrayList<PostClasses> arrayClasses;
+
+    @SerializedName("array_id_deleted")
+    private ArrayList<PostDeletedImages> array_id_deleted;
+
+
     @SerializedName("id_student")
     private String id_student;
 
+    @SerializedName("withImage")
+    private String withImage;
 
 
 /*.................retreive all classes.................*/
@@ -280,6 +288,25 @@ public class JsonParameters {
         this.arrayClasses=arrayClasses;
     }
 
+    public JsonParameters(String id_direction, String title, String description, String is_filter, ArrayList<PostClasses> arrayClasses,String withImage) {
+        this.id_direction = id_direction;
+        this.title = title;
+        this.description = description;
+        this.is_filter=is_filter;
+        this.arrayClasses=arrayClasses;
+        this.withImage=withImage;
+    }
+
+    public JsonParameters(String id_announcement, String id_direction, String title, String description, String is_filter, ArrayList<PostClasses> arrayClasses, String withImage, ArrayList<PostDeletedImages> postDeletedImages) {
+       this.id_announcement=id_announcement;
+        this.id_direction = id_direction;
+        this.title = title;
+        this.description = description;
+        this.is_filter=is_filter;
+        this.arrayClasses=arrayClasses;
+        this.withImage=withImage;
+        this.array_id_deleted=postDeletedImages;
+    }
 
 
     public JsonParameters(String id_direction, String title, String description,String id,int type,boolean isEdit) {

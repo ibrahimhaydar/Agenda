@@ -134,7 +134,7 @@ public class Activity_add_activity_images extends Activity implements RVOnItemCl
             }
         });
         rvPickedImages=(RecyclerView)findViewById(R.id.rvPickedImages);
-        adapterImages=new AdapterAddImages(arrayImagePaths,this);
+        adapterImages=new AdapterAddImages(arrayImagePaths,this,"activities");
         GridLayoutManager glm=new GridLayoutManager(this,4);
         rvPickedImages.setLayoutManager(glm);
         rvPickedImages.setAdapter(adapterImages);

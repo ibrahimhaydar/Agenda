@@ -14,6 +14,17 @@ public class JsonAttendance {
     @Expose
     private String status;
 
+    @SerializedName("absence_count")
+    @Expose
+    private String absence_count;
+
+    @SerializedName("present_count")
+    @Expose
+    private String present_count;
+
+
+
+
     public ArrayList<Attendance> getAttendance() {
         return attendance;
     }
@@ -30,4 +41,19 @@ public class JsonAttendance {
         this.status = status;
     }
 
+    public String getAbsence_count() {
+        return absence_count;
+    }
+
+    public void setAbsence_count(String absence_count) {
+        this.absence_count = absence_count;
+    }
+
+    public String getPresent_count() {
+        return present_count;
+    }
+
+    public void setPresent_count(String present_count) {
+        this.present_count = present_count;
+    }
 }

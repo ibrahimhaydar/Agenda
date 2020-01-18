@@ -23,10 +23,30 @@ public class Announcements {
     @Expose
     private String announcement_date;
 
+    @SerializedName("withImage")
+    @Expose
+    private String withImage;
+
     @SerializedName("images")
     @Expose
     private ArrayList<Image> images = null;
 
+
+    @SerializedName("is_filter")
+    @Expose
+    private String is_filter;
+
+    @SerializedName("array_classes")
+    @Expose
+    private ArrayList<Allclass> classes = null;
+
+    public String getWithImage() {
+        return withImage;
+    }
+
+    public void setWithImage(String withImage) {
+        this.withImage = withImage;
+    }
 
     public String getTitle() {
         return title;
@@ -66,5 +86,22 @@ public class Announcements {
 
     public void setAnnouncement_date(String announcement_date) {
         this.announcement_date = announcement_date;
+    }
+
+
+    public String getIs_filter() {
+        return is_filter;
+    }
+
+    public void setIs_filter(String is_filter) {
+        this.is_filter = is_filter;
+    }
+
+    public ArrayList<Allclass> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(ArrayList<Allclass> classes) {
+        this.classes = classes;
     }
 }

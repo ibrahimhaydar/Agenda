@@ -25,6 +25,7 @@ import com.mobiweb.ibrahim.agenda.activities.Activity_main;
 import com.mobiweb.ibrahim.agenda.models.json.JsonAgenda;
 import com.mobiweb.ibrahim.agenda.models.json.JsonParameters;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
+import com.mobiweb.ibrahim.agenda.utils.AppHelper;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitInterface;
 
@@ -52,13 +53,12 @@ public class ActivityAgenda extends Activity implements RVOnItemClickListener{
     private Activity activity;
     private CustomTextViewBoldAr toolbarTitleAr;
 
-
     private int mYear, mMonth, mDay, mHour, mMinute;
     private String dateNow,mDayLetters;
     public static final String[] MONTHS = {"كانون الثاني", "شباط", "آذار", "نيسان", "أيار", "حزيران", "تموز", "آب", "أيلول", "تشرين الأول", "تشرين الثاني", "كانون الأول"};
     private String selectedDate;
     private String arabicDay="";
-    private String displayDate="";
+    private String displayDate="اليوم";
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -71,14 +71,40 @@ public class ActivityAgenda extends Activity implements RVOnItemClickListener{
 
 
         Calendar c = Calendar.getInstance();
-        int DayToday = c.get(Calendar.DAY_OF_WEEK);
-        Date today = c.getTime();
-        if(DayToday==c.FRIDAY)
-          c.add(Calendar.DAY_OF_YEAR, 3);
-        else if(DayToday==c.SATURDAY)
-          c.add(Calendar.DAY_OF_YEAR, 2);
-        else
-          c.add(Calendar.DAY_OF_YEAR, 1);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        String nextDay="";
+        String weekDay="";
+
+/*        if (Calendar.MONDAY == dayOfWeek) {
+            weekDay = "monday";
+            nextDay = "tuesday";
+            c.add(Calendar.DAY_OF_YEAR, 1);
+        } else if (Calendar.TUESDAY == dayOfWeek) {
+            weekDay = "tuesday";
+            nextDay = "wednesday";
+            c.add(Calendar.DAY_OF_YEAR, 1);
+        } else if (Calendar.WEDNESDAY == dayOfWeek) {
+            weekDay = "wednesday";
+            nextDay = "thursday";
+            c.add(Calendar.DAY_OF_YEAR, 1);
+        } else if (Calendar.THURSDAY == dayOfWeek) {
+            weekDay = "thursday";
+            nextDay = "friday";
+            c.add(Calendar.DAY_OF_YEAR, 1);
+        } else if (Calendar.FRIDAY == dayOfWeek) {
+            weekDay = "friday";
+            nextDay = "monday";
+            c.add(Calendar.DAY_OF_YEAR, 3);
+        } else if (Calendar.SATURDAY == dayOfWeek) {
+            weekDay = "saturday";
+            nextDay = "monday";
+            c.add(Calendar.DAY_OF_YEAR, 2);
+        } else if (Calendar.SUNDAY == dayOfWeek) {
+            c.add(Calendar.DAY_OF_YEAR, 1);
+            nextDay = "monday";
+            weekDay = "sunday";
+        }*/
+
 
         int year = c.get(Calendar.YEAR);
         int day = c.get(Calendar.DAY_OF_MONTH);
@@ -86,25 +112,20 @@ public class ActivityAgenda extends Activity implements RVOnItemClickListener{
         mDayLetters=c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
         SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
         Date date = new Date(year, month, day-1);
-        String dayOfWeek = simpledateformat.format(date);
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+
 
 
 
         //  dateNow = year + "-" +(month<10?("0"+month):(month)) + "-" + (day<10?("0"+day):(day)) ;
-       // dateNow=year + "-" + (month+1<10?("0"+month+1):(month+1))  + "-" + (day<10?("0"+day):(day)) + "  " +dayOfWeek;
+        // dateNow=year + "-" + (month+1<10?("0"+month+1):(month+1))  + "-" + (day<10?("0"+day):(day)) + "  " +dayOfWeek;
         dateNow=year + "-" + (month+1)  + "-" + (day<10?("0"+day):(day));
-        ctvdate.setText(getArabicDay(dayOfWeek) + " " + (day < 10 ? ("0" + day) : (day)) + " " + MONTHS[month] + " " + year);
-        selectedDate=year + "-" + (month+1<10?("0"+month+1):(month+1))  + "-" + (day<10?("0"+day):(day)) + "  " +dayOfWeek;
+        ctvdate.setText(getArabicDay(nextDay) + " " + (day < 10 ? ("0" + day) : (day)) + " " + MONTHS[month] + " " + year);
+
+        // selectedDate=year + "-" + (monthOfYear+1<10?("0"+monthOfYear+1):(monthOfYear+1))  + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth)) + "  " +dayOfWeek;
 
 
 
         retreiveAgenda(id_class,id_section,dateNow);
-
-
-
         toolbarTitle.setText(class_name);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,48 +148,44 @@ public class ActivityAgenda extends Activity implements RVOnItemClickListener{
         ivRight.setVisibility(View.GONE);
 
         ivDate.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
+
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
 
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(activity,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
+                                Date date = new Date(year, monthOfYear, dayOfMonth-1);
+                                String dayOfWeek = simpledateformat.format(date);
 
 
+                                if(dateNow.matches(year + "-" + (monthOfYear+1<10?("0"+monthOfYear+1):(monthOfYear+1))  + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth)))){
+                                    ctvdate.setText("اليوم");
+                                    displayDate="اليوم";
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(activity,
-                new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-
-                        SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
-                        Date date = new Date(year, monthOfYear, dayOfMonth-1);
-                        String dayOfWeek = simpledateformat.format(date);
-
-
-
-
-                /*        if(dateNow.matches(year + "-" + (monthOfYear+1<10?("0"+monthOfYear+1):(monthOfYear+1))  + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth)))){
-                             ctvdate.setText("اليوم");
-                            displayDate="اليوم";
-
-                        }
-                        else {*/
-                            ctvdate.setText(getArabicDay(dayOfWeek) + " " + (dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + " " + MONTHS[monthOfYear] + " " + year);
-                            displayDate=getArabicDay(dayOfWeek) + " " + (dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + " " + MONTHS[monthOfYear] + " " + year;
-                      //  }
-                        selectedDate=year + "-" + (monthOfYear+1)  + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
-                       retreiveAgenda(id_class,id_section,selectedDate);
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
-    }
-});
+                                }
+                                else {
+                                    ctvdate.setText(getArabicDay(dayOfWeek) + " " + (dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + " " + MONTHS[monthOfYear] + " " + year);
+                                    displayDate=getArabicDay(dayOfWeek) + " " + (dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + " " + MONTHS[monthOfYear] + " " + year;
+                                }
+                                selectedDate=year + "-" + (monthOfYear+1)  + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
+                                retreiveAgenda(id_class,id_section,selectedDate);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
 
 
 
@@ -207,14 +224,14 @@ public class ActivityAgenda extends Activity implements RVOnItemClickListener{
         Log.wtf("id_section",id_section);
         Log.wtf("date",date);
         Call call1 = RetrofitClient.getClient().create(RetrofitInterface.class)
-                .getAgenda(new JsonParameters(id_class,id_section,date));
+                .getAgendaFiles(new JsonParameters(id_class,id_section,date));
         call1.enqueue(new Callback<JsonAgenda>() {
             @Override
             public void onResponse(Call<JsonAgenda> call, Response<JsonAgenda> response) {
 
                 try {
                     onDataRetrieved(response.body());
-                   // Log.wtf("className", response.body().getAgenda().get(1).getHwDesc());
+                    // Log.wtf("className", response.body().getAgenda().get(1).getHwDesc());
                 } catch (Exception e) {
                     Log.wtf("exception","exception");
                     nodata.setVisibility(View.VISIBLE);
@@ -234,15 +251,15 @@ public class ActivityAgenda extends Activity implements RVOnItemClickListener{
         progress.setVisibility(View.GONE);
 
 
-           if (agenda.getStatus().matches("empty")) {
-               nodata.setVisibility(View.VISIBLE);
-           }else {
-               nodata.setVisibility(View.GONE);
-               adapter_agenda = new Adapter_agenda(agenda.getAgenda(), this);
-               GridLayoutManager glm = new GridLayoutManager(this, 1);
-               rvAgenda.setLayoutManager(glm);
-               rvAgenda.setAdapter(adapter_agenda);
-           }
+        if (agenda.getStatus().matches("empty")) {
+            nodata.setVisibility(View.VISIBLE);
+        }else {
+            nodata.setVisibility(View.GONE);
+            adapter_agenda = new Adapter_agenda(agenda.getAgenda(), this);
+            GridLayoutManager glm = new GridLayoutManager(this, 1);
+            rvAgenda.setLayoutManager(glm);
+            rvAgenda.setAdapter(adapter_agenda);
+        }
 
 
 
@@ -261,8 +278,9 @@ public class ActivityAgenda extends Activity implements RVOnItemClickListener{
         i.putExtra(AppConstants.HW_TITLE,adapter_agenda.getclasses().get(position).getHwTitle());
         i.putExtra(AppConstants.HW_DESC,adapter_agenda.getclasses().get(position).getHwDesc());
         i.putExtra(AppConstants.HW_DATE,displayDate);
+        AppHelper.setHwFiles(adapter_agenda.getclasses().get(position).getHwFiles());
         i.putStringArrayListExtra(AppConstants.HW_IMAGE, adapter_agenda.getclasses().get(position).getHwImage());
-       // i.putExtra(AppConstants.HW_IMAGE,adapter_agenda.getclasses().get(position).getHw_image());
+        // i.putExtra(AppConstants.HW_IMAGE,adapter_agenda.getclasses().get(position).getHw_image());
         i.putExtra(AppConstants.HW_INFO,adapter_agenda.getclasses().get(position).getHw_info());
         startActivity(i);
 

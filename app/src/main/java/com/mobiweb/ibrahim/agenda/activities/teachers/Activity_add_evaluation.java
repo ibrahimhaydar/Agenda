@@ -19,12 +19,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobiweb.ibrahim.agenda.Agenda;
 import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold;
 import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr;
 import com.mobiweb.ibrahim.agenda.R;
+import com.mobiweb.ibrahim.agenda.activities.director.Activity_direction_home;
 import com.mobiweb.ibrahim.agenda.activities.director.agenda.Activity_all_teachers;
 import com.mobiweb.ibrahim.agenda.models.entities.PostEvaluation;
 import com.mobiweb.ibrahim.agenda.models.json.JsonClassStudents;
@@ -73,7 +75,7 @@ public class Activity_add_evaluation extends ActivityBase implements EditTextOnK
     private  LinearLayout linearProgressDialog;
     private Activity activity;
 
-
+    private TextView tvCardClassName;
 
 
 
@@ -102,7 +104,8 @@ public class Activity_add_evaluation extends ActivityBase implements EditTextOnK
             @Override
             public void onClick(View view) {
                 if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION))
-                    startActivity(new Intent(Activity_add_evaluation.this,Activity_all_teachers.class));
+                    startActivity(new Intent(Activity_add_evaluation.this, Activity_direction_home.class));
+                   // startActivity(new Intent(Activity_add_evaluation.this,Activity_all_teachers.class));
                 else
                     startActivity(new Intent(Activity_add_evaluation.this,Activity_teacher.class));
             }
@@ -113,6 +116,10 @@ public class Activity_add_evaluation extends ActivityBase implements EditTextOnK
     }
 
     private void init(){
+
+        tvCardClassName=findViewById(R.id.tvCardClassName);
+        tvCardClassName.setText(AppHelper.getClass_name());
+
         rvEvaluations=(RecyclerView)findViewById(R.id.rvEvaluation);
         toolbarTitle=(CustomTextViewBold)findViewById(R.id.toolbarTitle);
         toolbarTitleAr=(CustomTextViewBoldAr)findViewById(R.id.toolbarTitleAr);

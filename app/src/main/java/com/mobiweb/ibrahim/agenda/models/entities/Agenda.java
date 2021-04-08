@@ -3,6 +3,7 @@ package com.mobiweb.ibrahim.agenda.models.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Agenda {
@@ -25,6 +26,11 @@ public class Agenda {
     @SerializedName("hw_image")
     @Expose
     private ArrayList<String> hwImage = null;
+
+    @SerializedName("hw_files")
+    @Expose
+    private ArrayList<Files> hwFiles = null;
+
 
     @SerializedName("hw_info")
     @Expose
@@ -77,5 +83,14 @@ public class Agenda {
 
     public void setHw_info(String hw_info) {
         this.hw_info = hw_info;
+    }
+
+
+    public ArrayList<Files> getHwFiles() {
+        return hwFiles;
+    }
+
+    public void setHwFiles(ArrayList<Files> hwFiles) {
+        this.hwFiles = hwFiles;
     }
 }

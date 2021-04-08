@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.mobiweb.ibrahim.agenda.Adapters.interfaces.IFragmentImages;
+import com.mobiweb.ibrahim.agenda.Custom.TouchImageView;
 import com.mobiweb.ibrahim.agenda.R;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 
@@ -50,7 +51,7 @@ public class AdapterImages extends PagerAdapter implements View.OnClickListener 
         itemView.findViewById(R.id.ivImages).setOnClickListener(this);
         container.addView(itemView);
 
-       loadImage(itemView.getContext(),(ImageView) itemView.findViewById(R.id.ivImages), RetrofitClient.BASE_URL+foldername+"/"+images.get(position),(ProgressBar) itemView.findViewById(R.id.progress));
+       loadImage(itemView.getContext(),(TouchImageView) itemView.findViewById(R.id.ivImages), RetrofitClient.BASE_URL+foldername+"/"+images.get(position),(ProgressBar) itemView.findViewById(R.id.progress));
        // AppHelper.setImage(itemView.getContext(),(ImageView) itemView.findViewById(R.id.ivImages), RetrofitClient.BASE_URL+foldername+"/"+images.get(position));
         return itemView;
     }
@@ -66,7 +67,7 @@ public class AdapterImages extends PagerAdapter implements View.OnClickListener 
         Glide.clear((View) object);
     }
 
-    private void loadImage(Context context, final ImageView imageView, String url, final ProgressBar progressBar){
+    private void loadImage(Context context, final TouchImageView imageView, String url, final ProgressBar progressBar){
         Glide.with(context)
                 .load(url)
                 .asBitmap()
@@ -102,6 +103,7 @@ public class AdapterImages extends PagerAdapter implements View.OnClickListener 
             @Override
             public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
                 imageView.setImageBitmap(bitmap);
+                imageView.setZoom(1);
 
 
             }

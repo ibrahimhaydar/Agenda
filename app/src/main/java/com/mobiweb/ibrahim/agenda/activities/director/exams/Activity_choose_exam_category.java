@@ -138,6 +138,7 @@ public class Activity_choose_exam_category extends ActivityBase implements RVOnI
         AppHelper.setId_category_exam(adapterClasses.getcategories().get(position).getIdCategory());
 
 
+        AppHelper.setExamCategoryName(adapterClasses.getcategories().get(position).getTitle());
 
         if(getIntent().getStringExtra(AppConstants.INTENT_FROM).matches(AppConstants.INTENT_PARENTS_EXAMS)){
 
@@ -152,7 +153,8 @@ public class Activity_choose_exam_category extends ActivityBase implements RVOnI
        else if(getIntent().getStringExtra(AppConstants.INTENT_FROM).matches(AppConstants.INTENT_TEACHER)) {
             if(getIntent().getStringExtra(AppConstants.EXAM_FROM).matches(AppConstants.EXAM_FROM_SCHEDULE_EXAM))
             {
-                Intent i = new Intent(Activity_choose_exam_category.this, Activity_teacher_exams_main.class);
+                Intent i = new Intent(Activity_choose_exam_category.this, Activity_teacher_exams_main.class)
+                        .putExtra(AppConstants.CLASS_NAME,getIntent().getStringExtra(AppConstants.CLASS_NAME));
                 startActivity(i);
             }else if(getIntent().getStringExtra(AppConstants.EXAM_FROM).matches(AppConstants.EXAM_FROM_GRADES))
             {
@@ -160,7 +162,15 @@ public class Activity_choose_exam_category extends ActivityBase implements RVOnI
                 startActivity(i);
             }
 
-        }else {
+        }
+        else if(getIntent().getStringExtra(AppConstants.INTENT_FROM).matches(AppConstants.INTENT_TEACHER_EXAMS)) {
+            Intent i = new Intent(Activity_choose_exam_category.this, Activity_classes.class);
+            i.putExtra(AppConstants.INTENT_FROM,AppConstants.INTENT_TEACHER_EXAMS);
+            startActivity(i);
+
+        }
+
+       else {
             Intent i = new Intent(Activity_choose_exam_category.this, Activity_classes.class);
             i.putExtra(AppConstants.INTENT_FROM,getIntent().getStringExtra(AppConstants.INTENT_FROM));
             if(getIntent().getStringExtra(AppConstants.INTENT_ACTIVITY)!=null)

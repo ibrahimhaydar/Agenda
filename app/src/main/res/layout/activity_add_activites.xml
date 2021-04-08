@@ -65,6 +65,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
                         android:background="@drawable/border"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:overScrollMode="always"
                         android:gravity="top" />
 
                     <LinearLayout

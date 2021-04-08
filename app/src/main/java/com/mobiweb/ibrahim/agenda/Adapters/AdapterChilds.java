@@ -52,7 +52,9 @@ public class AdapterChilds extends RecyclerView.Adapter<AdapterChilds.VHAllclass
         try{
             holder.ctvBirthday.setText(childs.get(position).getBirth_date());
         }catch (Exception e){}
-
+        try{
+            holder.tvClassName.setText(childs.get(position).getClassName());
+        }catch (Exception e){}
         try{
             AppHelper.setRoundImage(holder.itemView.getContext(),holder.ivStudent,childs.get(position).getImage());
         }catch (Exception e){}
@@ -76,14 +78,16 @@ public class AdapterChilds extends RecyclerView.Adapter<AdapterChilds.VHAllclass
     protected class VHAllclass extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private CustomTextViewBoldAr ctvChildName;
-        private CustomTextViewAr ctvBirthday;
+        private CustomTextView ctvBirthday;
+        private CustomTextView tvClassName;
         private ImageView ivStudent;
 
 
         public VHAllclass(View itemView) {
             super(itemView);
             ctvChildName = (CustomTextViewBoldAr) itemView.findViewById(R.id.ctvChildName);
-            ctvBirthday = (CustomTextViewAr) itemView.findViewById(R.id.ctvBirthday);
+            ctvBirthday = (CustomTextView) itemView.findViewById(R.id.ctvBirthday);
+            tvClassName = (CustomTextView) itemView.findViewById(R.id.tvClassName);
             ivStudent = (ImageView) itemView.findViewById(R.id.ivStudent);
             itemView.setOnClickListener(this);
         }

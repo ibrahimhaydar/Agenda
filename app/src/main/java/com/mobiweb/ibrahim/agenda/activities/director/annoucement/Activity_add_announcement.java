@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -194,6 +195,20 @@ public class Activity_add_announcement extends ActivityBase implements RVOnItemC
         edHwTitle=(EditText)findViewById(R.id.etTitle);
        // edHwTitle.setText(AppHelper.getCourseName());
         etHwDesc=(EditText)findViewById(R.id.etDescription);
+        etHwDesc.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                if (etHwDesc.hasFocus()) {
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction() & MotionEvent.ACTION_MASK){
+                        case MotionEvent.ACTION_SCROLL:
+                            v.getParent().requestDisallowInterceptTouchEvent(false);
+                            return true;
+                    }
+                }
+                return false;
+            }
+        });
         btAdd=(Button)findViewById(R.id.btAdd);
         ctvTitleLabel=(CustomTextViewBold)findViewById(R.id.ctvTitleLabel);
         ctvDescLabel=(CustomTextViewBold)findViewById(R.id.ctvDescLabel);
@@ -524,6 +539,7 @@ private boolean adapterHasSelected(){
                 if(isSuccess) {
                    // Toast.makeText(getApplication(),"success",Toast.LENGTH_LONG).show();
                   startActivity(new Intent(Activity_add_announcement.this,Activity_view_announcement.class));
+                  finish();
                 }
                 else {
                    // Toast.makeText(getApplication(),"fail",Toast.LENGTH_LONG).show();

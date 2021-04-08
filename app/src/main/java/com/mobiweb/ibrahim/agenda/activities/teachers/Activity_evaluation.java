@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobiweb.ibrahim.agenda.Adapters.AdapterTeacherCourses;
@@ -50,10 +51,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by ibrahim on 11/13/2017.
- */
-
 public class Activity_evaluation extends ActivityBase implements RVOnItemClickListener {
     private RecyclerView rvEvaluations;
     private LinearLayout progress;
@@ -73,18 +70,12 @@ public class Activity_evaluation extends ActivityBase implements RVOnItemClickLi
 
 
     private CustomTextView ctvSelectedFilter, ctvFilterAll,ctvFilterStudent,ctvFilterDate;
-
-
-
     private RecyclerView rvStudents;
     private  LinearLayout linearProgressDialog;
     private Activity activity;
     private AdapterStudent adapterStudent;
     private LinearLayout linearAdd;
-
-
-
-
+    private TextView tvCardClassName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -139,11 +130,13 @@ public class Activity_evaluation extends ActivityBase implements RVOnItemClickLi
            retreiveEvaluation(AppConstants.FILTER_ALL,"");
        }
 
-
-
     }
 
     private void init(){
+        tvCardClassName=findViewById(R.id.tvCardClassName);
+        tvCardClassName.setText(AppHelper.getClass_name());
+
+
         rvEvaluations=(RecyclerView)findViewById(R.id.rvEvaluation);
         toolbarTitle=(CustomTextViewBold)findViewById(R.id.toolbarTitle);
         toolbarTitleAr=(CustomTextViewBoldAr)findViewById(R.id.toolbarTitleAr);
@@ -363,7 +356,7 @@ public class Activity_evaluation extends ActivityBase implements RVOnItemClickLi
     @Override
     public void onItemClicked(View view, int position) {
 
-        if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION)) {
+        if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION) || ((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_TEACHER)) {
             if (view.getId() == R.id.idStudent) {
                 studentsDialog.dismiss();
                 retreiveEvaluation(AppConstants.FILTER_STUDENT, adapterStudent.getinfoStudents().get(position).getIdStudent());

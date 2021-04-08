@@ -78,7 +78,7 @@ try {
 
         public VHPickedImages(View itemView) {
             super(itemView);
-            ivPickedImage = (ImageView) itemView.findViewById(R.id.ivPickedImage);
+            ivPickedImage = (ImageView) itemView.findViewById(R.id.ivPickedFile);
             ivClose = (ImageView) itemView.findViewById(R.id.ivClose);
 
 

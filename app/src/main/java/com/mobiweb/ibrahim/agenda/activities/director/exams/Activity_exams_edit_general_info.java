@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobiweb.ibrahim.agenda.Custom.CustomTextView;
@@ -21,6 +22,7 @@ import com.mobiweb.ibrahim.agenda.activities.director.Activity_direction_home;
 import com.mobiweb.ibrahim.agenda.models.entities.Result;
 import com.mobiweb.ibrahim.agenda.models.json.JsonParameters;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
+import com.mobiweb.ibrahim.agenda.utils.AppHelper;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitInterface;
 
@@ -43,7 +45,7 @@ public class Activity_exams_edit_general_info extends ActivityBase {
     private CustomTextView ctvDialogMessage;
     private CustomTextViewBold ctvTitleLabel,ctvDescLabel;
     private String id_exam;
-
+    private TextView tvCardClassName,tvCardExamName;
 
 
     private Dialog responseDialog;
@@ -60,7 +62,11 @@ public class Activity_exams_edit_general_info extends ActivityBase {
 
 
     private void init() {
-
+        tvCardClassName=findViewById(R.id.tvCardClassName);
+        tvCardClassName.setText(AppHelper.getClass_name());
+        tvCardExamName=findViewById(R.id.tvCardExamName);
+        tvCardExamName.setText(AppHelper.getExamCategoryName());
+        tvCardExamName.setVisibility(View.VISIBLE);
 
         toolbarTitle=(CustomTextViewBold)findViewById(R.id.toolbarTitle);
         toolbarTitleAr=(CustomTextViewBoldAr)findViewById(R.id.toolbarTitleAr);

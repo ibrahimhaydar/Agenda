@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.mobiweb.ibrahim.agenda.Adapters.AdapterAddExamDetails;
@@ -33,6 +34,7 @@ import com.mobiweb.ibrahim.agenda.models.entities.Result;
 import com.mobiweb.ibrahim.agenda.models.entities.ScheduleExamPost;
 import com.mobiweb.ibrahim.agenda.models.json.JsonParameters;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
+import com.mobiweb.ibrahim.agenda.utils.AppHelper;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitInterface;
 
@@ -73,7 +75,7 @@ public class Activity_exams_add_details extends ActivityBase implements RVOnItem
     private Button btOk;
     private CustomTextView ctvDialogMessage;
     public static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-
+    private TextView tvCardClassName,tvCardExamName;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +84,13 @@ public class Activity_exams_add_details extends ActivityBase implements RVOnItem
     }
 
     private void init(){
+
+        tvCardClassName=findViewById(R.id.tvCardClassName);
+        tvCardClassName.setText(AppHelper.getClass_name());
+        tvCardExamName=findViewById(R.id.tvCardExamName);
+        tvCardExamName.setText(AppHelper.getExamCategoryName());
+        tvCardExamName.setVisibility(View.VISIBLE);
+
         progress=(LinearLayout)findViewById(R.id.progress);
         id_class_exam=getIntent().getStringExtra(AppConstants.ID_EXAM);
         activity=this;

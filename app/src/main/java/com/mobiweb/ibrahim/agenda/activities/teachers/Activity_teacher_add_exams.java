@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -64,7 +65,7 @@ public class Activity_teacher_add_exams extends ActivityBase {
     private String selectedDate="0000:00:00";
     private String selectedFrom="00:00:00";
     private String selectedTo="00:00:00";
-
+    private TextView tvCardClassName,tvCardExamName;
 
    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,6 +90,11 @@ public class Activity_teacher_add_exams extends ActivityBase {
 
 
     private void init() {
+        tvCardClassName=findViewById(R.id.tvCardClassName);
+        tvCardClassName.setText(AppHelper.getClass_name());
+        tvCardExamName=findViewById(R.id.tvCardExamName);
+        tvCardExamName.setText(AppHelper.getExamCategoryName());
+        tvCardExamName.setVisibility(View.VISIBLE);
 
 
         id_class=getIntent().getStringExtra(AppConstants.ClASS_ID);

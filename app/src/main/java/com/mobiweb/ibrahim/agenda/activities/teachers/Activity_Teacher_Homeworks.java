@@ -80,11 +80,12 @@ public class Activity_Teacher_Homeworks extends ActivityBase {
         llAddHw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(Activity_Teacher_Homeworks.this,Activity_Add_homework.class);
+                Intent i=new Intent(Activity_Teacher_Homeworks.this,Activity_add_homework_files.class);
 
                 i.putExtra(AppConstants.ClASS_ID,id_class);
                 i.putExtra(AppConstants.ClASS_SECTION_ID,id_section);
                 i.putExtra(AppConstants.COURSE_ID,id_course);
+                i.putExtra(AppConstants.CLASS_NAME,getIntent().getStringExtra(AppConstants.CLASS_NAME));
                 startActivity(i);
             }
         });
@@ -99,7 +100,7 @@ public class Activity_Teacher_Homeworks extends ActivityBase {
                 i.putExtra(AppConstants.ClASS_SECTION_ID,id_section);
                 i.putExtra(AppConstants.COURSE_ID,id_course);
                 i.putExtra(AppConstants.TEACHER_ID,id_teacher);
-
+                i.putExtra(AppConstants.CLASS_NAME,getIntent().getStringExtra(AppConstants.CLASS_NAME));
                 startActivity(i);
             }
         });

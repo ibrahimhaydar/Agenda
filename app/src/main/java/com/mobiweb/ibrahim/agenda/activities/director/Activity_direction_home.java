@@ -4,28 +4,31 @@ package com.mobiweb.ibrahim.agenda.activities.director;
  * Created by ibrahim on 2/16/2018.
  */
 
-import com.mobiweb.ibrahim.agenda.Adapters.AdapterChilds;
-import com.mobiweb.ibrahim.agenda.Adapters.interfaces.RVOnItemClickListener;
-import com.mobiweb.ibrahim.agenda.activities.ActivityBase; import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.mobiweb.ibrahim.agenda.Adapters.AdapterAllTeachers;
+import com.mobiweb.ibrahim.agenda.Adapters.AdapterChilds;
+import com.mobiweb.ibrahim.agenda.Adapters.interfaces.RVOnItemClickListener;
 import com.mobiweb.ibrahim.agenda.Agenda;
 import com.mobiweb.ibrahim.agenda.Custom.CustomTextView;
 import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold;
 import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr;
 import com.mobiweb.ibrahim.agenda.R;
+import com.mobiweb.ibrahim.agenda.activities.ActivityBase;
 import com.mobiweb.ibrahim.agenda.activities.Activity_main;
 import com.mobiweb.ibrahim.agenda.activities.director.activities.Activity_activities_main;
 import com.mobiweb.ibrahim.agenda.activities.director.activities.Activity_view_activities;
@@ -33,7 +36,6 @@ import com.mobiweb.ibrahim.agenda.activities.director.agenda.Activity_all_teache
 import com.mobiweb.ibrahim.agenda.activities.director.annoucement.Activity_announcement_main;
 import com.mobiweb.ibrahim.agenda.activities.director.annoucement.Activity_view_announcement;
 import com.mobiweb.ibrahim.agenda.activities.director.exams.Activity_choose_exam_category;
-import com.mobiweb.ibrahim.agenda.activities.director.schedual.Activity_view_schedule;
 import com.mobiweb.ibrahim.agenda.activities.director.videos.Activity_video_main;
 import com.mobiweb.ibrahim.agenda.activities.director.videos.Activity_view_videos;
 import com.mobiweb.ibrahim.agenda.activities.parents.Activity_classes;
@@ -60,7 +62,7 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
     private LinearLayout progress;
     private CustomTextViewBold toolbarTitle;
     private CustomTextViewBoldAr toolbarTitleAr;
-    private ImageView ivBack,ivRight;
+    private ImageView ivBack,ivRight,ivStudent;
     private Dialog logoutDialog;
     private CustomTextView btYes;
     private CustomTextView btNo;
@@ -70,13 +72,20 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
     private RecyclerView rvChilds;
     private AdapterChilds adapterChilds;
     private CustomTextViewBold ctvSelectedChild;
+    private RelativeLayout rlSelectedChild;
     private CustomTextViewBoldAr ctvSelectedChildAr;
     private String SelectedChildId,selectedChildClass;
     private boolean isRvChildOpen=false;
     private User cachedUser;
-    private LinearLayout linearcardSchedualTeacher,linearCardEvaluation,linearCardAttendance,linearCardGrades;
+    private LinearLayout linearcardSchedualTeacher,linearCardEvaluation,linearCardAttendance,linearCardGrades,linearCardDirectionAgedna,linearImage;
+
+  private LinearLayout linearCardAgenda, linearCardDirectionAgenda, linearCardActivities, linearCardAnnouncement, linearCardExams, linearCardVideos, linearCardScedule;
+private ScrollView myScroll;
+
+
     private CustomTextViewBold ctvAgenda;
     private CustomTextViewBoldAr ctvAgendaAr;
+    private ImageView ivAgenda;
 
 
 
@@ -91,12 +100,15 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
     }
 
     private void init() {
+        ivAgenda=findViewById(R.id.ivAgenda);
+        linearCardDirectionAgedna=findViewById(R.id.linearCardDirectionAgenda);
         ctvAgenda=(CustomTextViewBold)findViewById(R.id.ctvAgenda);
         ctvAgendaAr=(CustomTextViewBoldAr)findViewById(R.id.ctvAgendaAr);
         linearChilds=(LinearLayout)findViewById(R.id.linearChilds) ;
         ivArrowDown=(ImageView)findViewById(R.id.ivArrowDown);
         rvChilds=(RecyclerView)findViewById(R.id.rvChilds);
         ctvSelectedChild=(CustomTextViewBold) findViewById(R.id.ctvSelectedChild);
+        rlSelectedChild=(RelativeLayout) findViewById(R.id.rlSelectedChild);
         ctvSelectedChildAr=(CustomTextViewBoldAr) findViewById(R.id.ctvSelectedChildAr);
         ctvSelectedChildAr.setVisibility(View.GONE);
         ctvSelectedChild.setVisibility(View.VISIBLE);
@@ -125,44 +137,86 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
         cardEvaluation=(CardView)findViewById(R.id.cardEvaluation);
         cardAttendance=(CardView)findViewById(R.id.cardAttendance);
 
+        myScroll=findViewById(R.id.myScroll);
+
         linearcardSchedualTeacher=(LinearLayout)findViewById(R.id.linearcardSchedualTeacher);
         linearCardAttendance=(LinearLayout)findViewById(R.id.linearCardAttendance);
         linearCardEvaluation=(LinearLayout)findViewById(R.id.linearCardEvaluation);
         linearCardGrades=(LinearLayout)findViewById(R.id.linearCardGrades);
 
+        linearCardAgenda=findViewById(R.id.linearCardAgenda);
+        linearCardDirectionAgenda=findViewById(R.id.linearCardDirectionAgenda);
+        linearCardActivities=findViewById(R.id.linearCardActivities);
+        linearCardAnnouncement=findViewById(R.id.linearCardAnnouncement);
+        linearCardExams=findViewById(R.id.linearCardExams);
+        linearCardVideos=findViewById(R.id.linearCardVideos);
+        linearCardScedule=findViewById(R.id.linearCardScedule);
+
+        ivStudent=(ImageView) findViewById(R.id.ivStudent);
+        linearImage=(LinearLayout)findViewById(R.id.linearImage);
 
 
 
 
         if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION)){
-            linearCardEvaluation.setVisibility(View.GONE);
-            linearCardAttendance.setVisibility(View.GONE);
-            ctvAgenda.setText(getText(R.string.classes));
-            ctvAgendaAr.setText(getText(R.string.classes_ar));
-            AppHelper.setMargins(getApplicationContext(),linearCardGrades,18,10,18,40);
-
+ /*           linearCardEvaluation.setVisibility(View.GONE);
+            linearCardAttendance.setVisibility(View.GONE);*/
+            ctvAgenda.setText(getText(R.string.teachers));
+            ctvAgendaAr.setText(getText(R.string.teachers_ar));
+            ivAgenda.setImageResource(R.drawable.teachers);
+            ivAgenda.setColorFilter(ContextCompat.getColor(this, R.color.home_color_1), android.graphics.PorterDuff.Mode.MULTIPLY);
+            // ivAgenda.setPadding(20,20,20,20);
+             AppHelper.setMargins(this,ivAgenda,15,15,15,15);
+            AppHelper.setMargins(getApplicationContext(),linearCardGrades,18,10,18,0);
+            linearImage.setVisibility(View.GONE);
+            linearCardDirectionAgedna.setVisibility(View.VISIBLE);
 
 
 
         } else if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_TEACHER)){
+            linearCardDirectionAgedna.setVisibility(View.GONE);
             linearCardEvaluation.setVisibility(View.GONE);
             linearCardAttendance.setVisibility(View.GONE);
+            linearImage.setVisibility(View.GONE);
+            linearCardGrades.setVisibility(View.GONE);
             ctvAgenda.setText(getText(R.string.classes));
             ctvAgendaAr.setText(getText(R.string.classes_ar));
             AppHelper.setMargins(getApplicationContext(),linearCardGrades,18,10,18,40);
 
-
-
         }else{
-            linearcardSchedualTeacher.setVisibility(View.GONE);
-            linearCardEvaluation.setVisibility(View.VISIBLE);
-            linearCardAttendance.setVisibility(View.VISIBLE);
-            cardAttendance.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(Activity_direction_home.this,Activity_student_attendance.class));
+            if(((Agenda)getApplication()).getCashedUser().getParent_type().matches("-1")){
+                linearChilds.setVisibility(View.GONE);
+                linearCardAgenda.setVisibility(View.GONE);
+                linearCardDirectionAgenda.setVisibility(View.GONE);
+                linearCardActivities.setVisibility(View.GONE);
+               // linearCardAnnouncement.setVisibility(View.GONE);
+                linearCardExams.setVisibility(View.GONE);
+                linearCardVideos.setVisibility(View.GONE);
+                linearCardScedule.setVisibility(View.GONE);
+                linearcardSchedualTeacher.setVisibility(View.GONE);
+                linearCardAttendance.setVisibility(View.GONE);
+
+                linearCardEvaluation.setVisibility(View.GONE);
+                linearCardGrades.setVisibility(View.GONE);
+                AppHelper.setMargins(this,myScroll,0,0,0,0);
+
+            }else
+                {
+                    linearCardDirectionAgedna.setVisibility(View.GONE);
+                    linearImage.setVisibility(View.VISIBLE);
+                    linearcardSchedualTeacher.setVisibility(View.GONE);
+                    linearCardEvaluation.setVisibility(View.VISIBLE);
+                    linearCardAttendance.setVisibility(View.VISIBLE);
+                    cardAttendance.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(Activity_direction_home.this,Activity_student_attendance.class));
+                        }
+                    });
                 }
-            });
+
+
+
 
         }
 
@@ -269,6 +323,19 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
         });
 
 
+        linearCardDirectionAgedna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION)) {
+                    Intent i = new Intent(Activity_direction_home.this, Activity_classes.class);
+                    i.putExtra(AppConstants.INTENT_FROM, AppConstants.INTENT_DIRECTION);
+                    i.putExtra(AppConstants.CLASSES_TYPE, AppConstants.CLASSES_AGENDA);
+                    startActivity(i);
+                }
+
+            }
+        });
+
         cardTeacherSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -290,7 +357,7 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
         cardGrades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION) || ((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_TEACHER)) {
+                if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION) /*|| ((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_TEACHER)*/) {
                     Intent i = new Intent(Activity_direction_home.this, Activity_choose_exam_category.class);
                     i.putExtra(AppConstants.INTENT_FROM, AppConstants.INTENT_DIRECTION);
                     i.putExtra(AppConstants.INTENT_ACTIVITY, AppConstants.INTENT_DIRECTOR_GRADES);
@@ -306,24 +373,59 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
         cardEvaluation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION)) {
+                    Intent i = new Intent(Activity_direction_home.this, Activity_classes.class);
+                    i.putExtra(AppConstants.INTENT_FROM, AppConstants.INTENT_DIRECTION);
+                    i.putExtra(AppConstants.INTENT_ACTIVITY,AppConstants.INTENT_DIRECTOR_TACHER_EVALUATION);
+                    startActivity(i);
+                }else {
                     Intent i = new Intent(Activity_direction_home.this, Activity_evaluation.class);
                     startActivity(i);
+                }
+            }
+        });
 
+        cardAttendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION)) {
+                    Intent i = new Intent(Activity_direction_home.this, Activity_classes.class);
+                    i.putExtra(AppConstants.INTENT_FROM, AppConstants.INTENT_DIRECTION);
+                    i.putExtra(AppConstants.INTENT_ACTIVITY,AppConstants.INTENT_DIRECTOR_TACHER_ATTENDANCE);
+                    startActivity(i);
+                }else {
+                    startActivity(new Intent(Activity_direction_home.this, Activity_student_attendance.class));
+                }
             }
         });
 
 
-
-
         if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_PARENT)) {
+            if(!((Agenda)getApplication()).getCashedUser().getParent_type().matches("-1")){
             setChildsList();
             checkStudentPermissions();
+            }
+
+
         }else {
             cachedUser=((Agenda)getApplication()).getCashedUser();
             ivArrowDown.setVisibility(View.GONE);
-            ctvSelectedChild.setText(((Agenda)getApplication()).getCashedUsername());
-            ctvSelectedChildAr.setText(((Agenda)getApplication()).getCashedUsername());
+            ctvSelectedChild.setText(((Agenda)getApplication()).getCashedUser().getName());
+            ctvSelectedChild.setGravity(Gravity.CENTER);
+            ctvSelectedChildAr.setGravity(Gravity.CENTER);
+
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ctvSelectedChild.getLayoutParams();
+            lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            lp.addRule(RelativeLayout.CENTER_VERTICAL);
+            ctvSelectedChild.setLayoutParams(lp);
+
+            RelativeLayout.LayoutParams lp2 = (RelativeLayout.LayoutParams) ctvSelectedChildAr.getLayoutParams();
+            lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            lp2.addRule(RelativeLayout.CENTER_VERTICAL);
+            ctvSelectedChildAr.setLayoutParams(lp2);
+
+         //   ctvSelectedChildAr.setText(((Agenda)getApplication()).getCashedUsername());
+
         }
     }
 
@@ -354,24 +456,27 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
             ctvSelectedChildAr.setVisibility(View.VISIBLE);
             ctvSelectedChild.setVisibility(View.GONE);
 
+
         }else {
             ctvSelectedChildAr.setVisibility(View.GONE);
             ctvSelectedChild.setVisibility(View.VISIBLE);
         }
 
 
-        if(cachedUser.getChilds().size()>1){
+        if(cachedUser.getChilds().size()>0){
             rvChilds.setVisibility(View.GONE);
 
 
             int position = 0;
             for(int i=0;i<cachedUser.getChilds().size();i++){
-                if(cachedUser.getChilds().get(i).getIdChild()==AppHelper.getStudentId())
+                if(cachedUser.getChilds().get(i).getIdChild().matches(AppHelper.getStudentId()))
                     position=i;
             }
             ctvSelectedChild.setText(cachedUser.getChilds().get(position).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
             ctvSelectedChildAr.setText(cachedUser.getChilds().get(position).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
-
+            try{
+                AppHelper.setRoundImage(this,ivStudent,cachedUser.getChilds().get(position).getImage());
+            }catch (Exception e){}
             SelectedChildId = cachedUser.getChilds().get(position).getIdChild();
             selectedChildClass=cachedUser.getChilds().get(position).getClassName();
             AppHelper.setId_class(cachedUser.getChilds().get(position).getIdClass());
@@ -384,7 +489,7 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
             GridLayoutManager glm=new GridLayoutManager(this,1);
             rvChilds.setAdapter(adapterChilds);
             rvChilds.setLayoutManager(glm);
-            ctvSelectedChild.setOnClickListener(new View.OnClickListener() {
+            rlSelectedChild.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(isRvChildOpen){
@@ -413,9 +518,13 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
                 }
             });
 
-        }else if(cachedUser.getChilds().size()==1) {
-            rvChilds.setVisibility(View.GONE);
+        }
 
+
+  /*      else if(cachedUser.getChilds().size()==1) {
+            rvChilds.setVisibility(View.GONE);
+            linearImage.setVisibility(View.VISIBLE);
+            ivArrowDown.setVisibility(View.VISIBLE);
            if(AppHelper.getStudentId()!=null){
                int position = 0;
                for(int i=0;i<cachedUser.getChilds().size();i++){
@@ -424,7 +533,9 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
                }
                ctvSelectedChild.setText(cachedUser.getChilds().get(position).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
                ctvSelectedChildAr.setText(cachedUser.getChilds().get(position).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
-
+               try{
+                   AppHelper.setRoundImage(this,ivStudent,cachedUser.getChilds().get(position).getImage());
+               }catch (Exception e){}
                SelectedChildId = cachedUser.getChilds().get(position).getIdChild();
                selectedChildClass=cachedUser.getChilds().get(position).getClassName();
                AppHelper.setId_class(cachedUser.getChilds().get(position).getIdClass());
@@ -434,7 +545,9 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
            }else {
                ctvSelectedChild.setText(cachedUser.getChilds().get(0).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
                ctvSelectedChildAr.setText(cachedUser.getChilds().get(0).getChildName() + " " + cachedUser.getFatherName() + " " + cachedUser.getFatherLastName());
-
+               try{
+                   AppHelper.setRoundImage(this,ivStudent,cachedUser.getChilds().get(0).getImage());
+               }catch (Exception e){}
                SelectedChildId = cachedUser.getChilds().get(0).getIdChild();
                selectedChildClass=cachedUser.getChilds().get(0).getClassName();
                AppHelper.setId_class(cachedUser.getChilds().get(0).getIdClass());
@@ -445,7 +558,7 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
             AppHelper.setStudentId(SelectedChildId);
             ivArrowDown.setVisibility(View.GONE);
 
-        }
+        }*/
     }
 
 
@@ -504,6 +617,8 @@ public class Activity_direction_home extends ActivityBase implements RVOnItemCli
         rvChilds.setVisibility(View.GONE);
         ctvSelectedChild.setText(adapterChilds.getChilds().get(position).getChildName() +" "+ cachedUser.getFatherName() +" "+ cachedUser.getFatherLastName());
         ctvSelectedChildAr.setText(adapterChilds.getChilds().get(position).getChildName() +" "+ cachedUser.getFatherName() +" "+ cachedUser.getFatherLastName());
-
+        try{
+            AppHelper.setRoundImage(this,ivStudent,adapterChilds.getChilds().get(position).getImage());
+        }catch (Exception e){}
     }
 }

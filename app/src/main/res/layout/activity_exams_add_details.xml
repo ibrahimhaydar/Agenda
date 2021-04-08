@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
     <include layout="@layout/toolbar"/>
     <include layout="@layout/loading"/>
+    <include layout="@layout/card_class_name"/>
 
     <ImageView
         android:layout_width="40dp"

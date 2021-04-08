@@ -10,6 +10,7 @@ import com.mobiweb.ibrahim.agenda.models.json.JsonAllTeachers;
 import com.mobiweb.ibrahim.agenda.models.json.JsonAnnouncement;
 import com.mobiweb.ibrahim.agenda.models.json.JsonAttendance;
 import com.mobiweb.ibrahim.agenda.models.json.JsonClassStudents;
+import com.mobiweb.ibrahim.agenda.models.json.JsonDate;
 import com.mobiweb.ibrahim.agenda.models.json.JsonEditExam;
 import com.mobiweb.ibrahim.agenda.models.json.JsonEvaluation;
 import com.mobiweb.ibrahim.agenda.models.json.JsonExamsCategory;
@@ -297,7 +298,55 @@ public interface RetrofitInterface {
     @POST("update_grades.php")
     Call<JsonResponse> update_grades(@Body JsonParameters parameters);
 
-
     @POST("get_student_attendance.php")
     Call<JsonAttendance> get_student_attendance(@Body JsonParameters parameters);
+
+    @POST("get_announcement_image_by_id.php")
+    Call<JsonAnnouncement> getAnnouncementsById(@Body JsonParameters parameters);
+    @POST("getTeacherHw_files.php")
+    Call<JsonAgenda> getTeacherHwFiles(@Body JsonParameters parameters);
+
+    @Multipart
+    @POST("edithw_files.php")
+    Call<Result> editHwFiles(
+            @Part List<MultipartBody.Part> files,
+            @Part("id_agenda") RequestBody id_agenda,
+            @Part("hw_title") RequestBody hw_title,
+            @Part("hw_desc") RequestBody hw_desc,
+            @Part("hw_date") RequestBody hw_date,
+            @Part("deleted_ids") RequestBody deleted_id,
+            @Part("hw_info") RequestBody hw_info
+
+
+    );
+
+    @POST("checkVersion.php")
+    Call<Result> checkVersion(@Body JsonParameters parameters);
+
+
+    @POST("getDateNow.php")
+    Call<JsonDate> getServerDate();
+
+
+    @Multipart
+    @POST("addhwFiles.php")
+    Call<Result> addHwFiles(
+            @Part List<MultipartBody.Part> files,
+            @Part("id_class") RequestBody id_class,
+            @Part("id_section") RequestBody id_section,
+            @Part("hw_date") RequestBody hw_date,
+            @Part("id_teacher") RequestBody id_teacher,
+            @Part("id_course") RequestBody id_course,
+            @Part("hw_title") RequestBody hw_title,
+            @Part("hw_desc") RequestBody hw_desc,
+            @Part("hw_image") RequestBody hw_image,
+            @Part("hw_info") RequestBody hw_info
+
+
+    );
+
+
+    @POST("getAgenda_files.php")
+    Call<JsonAgenda> getAgendaFiles(@Body JsonParameters parameters);
+
 }

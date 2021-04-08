@@ -1,24 +1,32 @@
 package com.mobiweb.ibrahim.agenda.activities;
 
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mobiweb.ibrahim.agenda.Agenda;
 import com.mobiweb.ibrahim.agenda.BuildConfig;
+import com.mobiweb.ibrahim.agenda.Custom.CustomTextView;
 import com.mobiweb.ibrahim.agenda.R;
 import com.mobiweb.ibrahim.agenda.activities.director.Activity_direction_home;
 import com.mobiweb.ibrahim.agenda.activities.parents.activities.Activity_inside_activities;
 import com.mobiweb.ibrahim.agenda.activities.teachers.Activity_teacher;
+import com.mobiweb.ibrahim.agenda.models.entities.Result;
 import com.mobiweb.ibrahim.agenda.models.json.JsonAddHw;
 import com.mobiweb.ibrahim.agenda.models.json.JsonParameters;
 import com.mobiweb.ibrahim.agenda.models.json.JsonUser;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
 import com.mobiweb.ibrahim.agenda.utils.AppHelper;
+import com.mobiweb.ibrahim.agenda.utils.InternetConnection;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitInterface;
 import com.mobiweb.ibrahim.agenda.utils.TelephonyHelper;
@@ -47,8 +55,18 @@ public class Activity_Splash extends ActivityBase {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        if(!InternetConnection.checkConnection(this)){
+            Toast.makeText(getApplication(),"Please check your internet connection \n الرجاء التأكد من الإتصال بشبكة الانترنت ", Toast.LENGTH_LONG).show();
+        }else {
+            checkVersion();
+        }
 
 
+    }
+
+
+
+    private void init(){
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.getString("PageId") != null) {
@@ -143,8 +161,6 @@ public class Activity_Splash extends ActivityBase {
 
         }, 2000);
     }
-
-
 
 
 
@@ -387,7 +403,71 @@ public class Activity_Splash extends ActivityBase {
         }
     }
 
+    public void  checkVersion() {
+        String appVersion = BuildConfig.VERSION_CODE+"";
+        Call call1 = RetrofitClient.getClient().create(RetrofitInterface.class)
+                .checkVersion(new JsonParameters(appVersion,AppConstants.PLATFORM_ID,3 ));
+        call1.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
 
+                try {
+                    // onDataRetrieved(response.body());
+                    if(response.body().getResult().matches("1")) {
+                        init();
+                    }
+                    else{
+                        updateApp(response.body().getMessage());
+                    }
+
+
+
+                } catch (Exception e) {
+                    Toast.makeText(getApplication(),"Please check your internet connection \n الرجاء التأكد من الإتصال بشبكة الانترنت ", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Toast.makeText(getApplication(),"Please check your internet connection \n الرجاء التأكد من الإتصال بشبكة الانترنت ", Toast.LENGTH_LONG).show();
+                call.cancel();
+
+            }
+        });
+
+
+    }
+
+    private void updateApp(String message){
+        final Dialog responseDialog = new Dialog(this);
+        responseDialog.setContentView(R.layout.popup_response);
+        Button btOk=(Button)responseDialog.findViewById(R.id.btOk);
+        CustomTextView ctvDialogMessage=(CustomTextView)responseDialog.findViewById(R.id.ctvMessage);
+        responseDialog.setCanceledOnTouchOutside(false);
+        responseDialog.setCancelable(false);
+        ctvDialogMessage.setText(message);
+        btOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                responseDialog.dismiss();
+                final String appPackageName = getPackageName();
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    finish();
+
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    finish();
+
+                }
+
+            }
+        });
+
+
+
+        responseDialog.show();
+    }
 }
 
 

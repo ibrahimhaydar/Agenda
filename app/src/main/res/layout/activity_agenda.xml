@@ -44,6 +44,7 @@
         android:textColor="@color/black"
         android:id="@+id/ctvDate"
         android:textSize="22sp"
+        android:text="اليوم"
         android:layout_marginTop="10dp"
         />
 

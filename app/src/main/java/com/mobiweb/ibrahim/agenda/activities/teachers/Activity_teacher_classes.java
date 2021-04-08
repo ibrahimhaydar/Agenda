@@ -121,7 +121,7 @@ public class Activity_teacher_classes extends ActivityBase implements RVOnItemCl
         AppHelper.setId_class(adapterClasses.getclasses().get(position).getIdClass());
         AppHelper.setId_section(adapterClasses.getclasses().get(position).getIdSection());
         AppHelper.setCourseId(adapterClasses.getclasses().get(position).getIdCourse());
-
+        AppHelper.setClass_name(adapterClasses.getclasses().get(position).getClassName());
         startActivity(i);
     }
 }

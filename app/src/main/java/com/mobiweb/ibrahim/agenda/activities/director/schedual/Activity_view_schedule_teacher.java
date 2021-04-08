@@ -3,6 +3,8 @@ package com.mobiweb.ibrahim.agenda.activities.director.schedual;
 
 
 import android.Manifest;
+
+import com.mobiweb.ibrahim.agenda.Custom.TouchImageViewDialog;
 import com.mobiweb.ibrahim.agenda.activities.ActivityBase; import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -190,10 +193,17 @@ public class Activity_view_schedule_teacher extends ActivityBase {
     }
 
 
-    private void onScheduleRetrieved(JsonSchedules result){
+    private void onScheduleRetrieved(final JsonSchedules result){
         progress.setVisibility(View.GONE);
         if(!result.getSchedules().get(0).getSchedule_url().isEmpty()){
             AppHelper.setImage(this,pickedSchedule,RetrofitClient.BASE_URL+"schedules/"+result.getSchedules().get(0).getSchedule_url());
+
+            pickedSchedule.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openImage(RetrofitClient.BASE_URL+"schedules/"+result.getSchedules().get(0).getSchedule_url(),false);
+                }
+            });
             ivClose.setVisibility(View.VISIBLE);
             ivClose.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -294,7 +304,27 @@ public class Activity_view_schedule_teacher extends ActivityBase {
     }
 
 
+    private void openImage(String path,boolean isFile){
 
+        // Dialog imageDialog = new Dialog(this);
+
+        final Dialog imageDialog=new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        imageDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+        imageDialog.setContentView(R.layout.popup_image);
+        TouchImageViewDialog ivPopupFull=(TouchImageViewDialog) imageDialog.findViewById(R.id.ivPopupFull);
+
+        if(isFile){
+            Glide.with(this)
+                    .load(new File(path))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).dontAnimate()
+                    .into(ivPopupFull);
+        }else
+            AppHelper.setImage(this,ivPopupFull,path);
+
+        imageDialog.show();
+    }
 
 
     private void popUpMessage(final boolean isSuccess){
@@ -378,7 +408,12 @@ public class Activity_view_schedule_teacher extends ActivityBase {
                         .diskCacheStrategy(DiskCacheStrategy.ALL).dontAnimate()
                         .into(pickedSchedule);
                 ischedulePicked = true;
-
+                pickedSchedule.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openImage(schedulePath,true);
+                    }
+                });
                 cursor.close();
             } else {
                 Toast.makeText(getApplication(),"unable to load",Toast.LENGTH_LONG).show();

@@ -82,6 +82,7 @@ public class Activity_teacher_exams_main extends ActivityBase {
         id_section=getIntent().getStringExtra(AppConstants.ClASS_SECTION_ID);
 
 
+
         id_teacher=getSharedPreferences(AppConstants.SHARED_PREFS, MODE_PRIVATE).getString(AppConstants.LOGIN_ID,"");
 
         toolbarTitle.setText(AppHelper.courseName);
@@ -149,6 +150,7 @@ public class Activity_teacher_exams_main extends ActivityBase {
                     i.putExtra(AppConstants.ClASS_ID,id_class);
                     i.putExtra(AppConstants.ClASS_SECTION_ID,id_section);
                     i.putExtra(AppConstants.COURSE_ID,id_course);
+                    i.putExtra(AppConstants.CLASS_NAME,getIntent().getStringExtra(AppConstants.CLASS_NAME));
                     startActivity(i);
                 }
             });
@@ -167,6 +169,7 @@ public class Activity_teacher_exams_main extends ActivityBase {
                     i.putExtra(AppConstants.DATE,exam.getDate());
                     i.putExtra(AppConstants.FROM,exam.getFrom());
                     i.putExtra(AppConstants.TO,exam.getTo());
+                    i.putExtra(AppConstants.CLASS_NAME,getIntent().getStringExtra(AppConstants.CLASS_NAME));
                     startActivity(i);
                 }
             });

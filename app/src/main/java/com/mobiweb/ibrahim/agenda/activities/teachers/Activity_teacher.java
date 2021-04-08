@@ -48,6 +48,9 @@ public class Activity_teacher extends ActivityBase implements RVOnItemClickListe
     private CustomTextView btYes;
     private CustomTextView btNo;
     private AdapterTeacherCourses adapterTeacherCourses;
+    private String teacherId="";
+    private String class_id="-1";
+    private String section_id="-1";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +96,7 @@ public class Activity_teacher extends ActivityBase implements RVOnItemClickListe
         }*/
 
 
-        retreiveCourses(getSharedPreferences(AppConstants.SHARED_PREFS, MODE_PRIVATE).getString(AppConstants.LOGIN_ID,""));
+        retreiveCourses();
     }
 
 private void init(){
@@ -103,7 +106,29 @@ private void init(){
     ivBack=(ImageView)findViewById(R.id.ivBack);
     ivRight=(ImageView)findViewById(R.id.ivRight);
     progress=(LinearLayout)findViewById(R.id.progress);
-}
+
+    if(getIntent().getStringExtra(AppConstants.INTENT_ACTIVITY)!=null){
+        try{
+        if(getIntent().getStringExtra(AppConstants.INTENT_ACTIVITY).matches(AppConstants.INTENT_DIRECTOR_TACHER_EVALUATION)) {
+            teacherId="-1";
+            class_id=AppHelper.getId_class();
+            section_id=AppHelper.getId_section();
+        }else {
+           teacherId= getSharedPreferences(AppConstants.SHARED_PREFS, MODE_PRIVATE).getString(AppConstants.LOGIN_ID,"");
+           class_id="-1";
+           section_id="-1";
+        }}catch (Exception e){
+            teacherId= getSharedPreferences(AppConstants.SHARED_PREFS, MODE_PRIVATE).getString(AppConstants.LOGIN_ID,"");
+            class_id="-1";
+            section_id="-1";
+        }
+    }else {
+        teacherId= getSharedPreferences(AppConstants.SHARED_PREFS, MODE_PRIVATE).getString(AppConstants.LOGIN_ID,"");
+        class_id="-1";
+        section_id="-1";
+    }
+
+    }
 
 
     private void logout(){
@@ -138,10 +163,10 @@ private void init(){
 
 
 
-    public void retreiveCourses(String id_teacher) {
+    public void retreiveCourses() {
         progress.setVisibility(View.VISIBLE);
         Call call1 = RetrofitClient.getClient().create(RetrofitInterface.class)
-                .getCourses(new JsonParameters(id_teacher,true));
+                .getCourses(new JsonParameters(2,teacherId,class_id,section_id));
         call1.enqueue(new Callback<JsonTeacherCourses>() {
             @Override
             public void onResponse(Call<JsonTeacherCourses> call, Response<JsonTeacherCourses> response) {
@@ -174,11 +199,22 @@ private void init(){
 
     @Override
     public void onItemClicked(View view, int position) {
-         AppHelper.setCourseName(adapterTeacherCourses.getcourses().get(position).getNameCourse());
-         Intent i=new Intent(Activity_teacher.this,Activity_teacher_classes.class);
-           AppHelper.setCourseId(adapterTeacherCourses.getcourses().get(position).getIdCourse());
-           i.putExtra(AppConstants.COURSE_ID,adapterTeacherCourses.getcourses().get(position).getIdCourse());
-          startActivity(i);
+
+        if(!teacherId.matches("-1")) {
+            AppHelper.setCourseName(adapterTeacherCourses.getcourses().get(position).getNameCourse());
+            Intent i = new Intent(Activity_teacher.this, Activity_teacher_classes.class);
+            AppHelper.setCourseId(adapterTeacherCourses.getcourses().get(position).getIdCourse());
+            i.putExtra(AppConstants.COURSE_ID, adapterTeacherCourses.getcourses().get(position).getIdCourse());
+            startActivity(i);
+        }else {
+            AppHelper.setCourseName(adapterTeacherCourses.getcourses().get(position).getNameCourse());
+            Intent i = new Intent(Activity_teacher.this, Activity_evaluation.class);
+            AppHelper.setCourseId(adapterTeacherCourses.getcourses().get(position).getIdCourse());
+            i.putExtra(AppConstants.COURSE_ID, adapterTeacherCourses.getcourses().get(position).getIdCourse());
+            i.putExtra(AppConstants.INTENT_ACTIVITY,AppConstants.INTENT_DIRECTOR_TACHER_EVALUATION);
+            startActivity(i);
+
+        }
     }
 
     @Override

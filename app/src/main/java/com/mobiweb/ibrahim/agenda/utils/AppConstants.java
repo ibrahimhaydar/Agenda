@@ -10,6 +10,7 @@ public class AppConstants {
     public static final String SHARED_PREFS = "Preferences";
     public static final String INITIAL_USAGE = "InitialUsage";
     public static final String IMAGE_POSITION = "image_position";
+    public static final String SEEK_POSITION = "seek_position";
     public static final String LANGUAGE = "Language";
     public static final String PLATFORM_ID = "1";
     public static final String IMAGES_FOLDER = "images_folder";
@@ -72,6 +73,8 @@ public class AppConstants {
 
 
     public static final String INTENT_FROM = "intent_from";
+    public static final String CLASSES_TYPE = "classes_type";
+    public static final String CLASSES_AGENDA = "1";
     public static final String INTENT_DIRECTION = "1";
     public static final String INTENT_DIRECTION_EXAMS = "4";
     public static final String INTENT_PARENTS_EXAMS = "5";
@@ -80,6 +83,8 @@ public class AppConstants {
     public static final String INTENT_TEACHER = "3";
     public static final String INTENT_DIRECTOR_GRADES = "6";
     public static final String INTENT_DIRECTOR_TACHER_SCHDL = "7";
+    public static final String INTENT_DIRECTOR_TACHER_ATTENDANCE = "8";
+    public static final String INTENT_DIRECTOR_TACHER_EVALUATION = "9";
     public static final String INTENT_ACTIVITY = "intent_activity";
 
     public static final String EXAM_FROM = "exam_from";
@@ -108,4 +113,7 @@ public class AppConstants {
 
     public static final String IS_FILTER = "is_filter";
     public static final String ARRAY_CLASSES = "array_classes";
+
+    public static final String FILE_TYPE_IMAGE = "1";
+    public static final String FILE_TYPE_VIDEO = "2";
 }

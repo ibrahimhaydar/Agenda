@@ -174,6 +174,9 @@ public class JsonParameters {
     private String withImage;
 
 
+    @SerializedName("version_code")
+    private String version_code;
+
 /*.................retreive all classes.................*/
     public JsonParameters(String id,boolean isTeacher) {
        if(isTeacher)
@@ -196,8 +199,14 @@ public class JsonParameters {
        if(type==1) {
            this.id_class = param1;
            this.id_section = param2;
+       }else if(type==2){
+           this.id_announcement=param1;
+           this.id_user=param2;
        }
-
+       else if(type==3){
+           this.version_code=param1;
+           this.platformId=param2;
+       }
     }
 
 
@@ -543,6 +552,11 @@ public class JsonParameters {
             this.id_student = param1;
             this.page_number = param2;
             this.page_size = param3;
+        }else if(type==2){
+            this.id_teacher=param1;
+            this.id_class=param2;
+            this.id_section=param3;
+
         }
 
     }

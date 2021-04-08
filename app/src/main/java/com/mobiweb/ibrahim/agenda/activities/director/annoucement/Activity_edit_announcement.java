@@ -18,6 +18,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -194,6 +195,22 @@ public class Activity_edit_announcement extends ActivityBase  implements RVOnIte
         edHwTitle=(EditText)findViewById(R.id.etTitle);
        // edHwTitle.setText(AppHelper.getCourseName());
         etHwDesc=(EditText)findViewById(R.id.etDescription);
+        etHwDesc.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                if (etHwDesc.hasFocus()) {
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction() & MotionEvent.ACTION_MASK){
+                        case MotionEvent.ACTION_SCROLL:
+                            v.getParent().requestDisallowInterceptTouchEvent(false);
+                            return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
         btAdd=(Button)findViewById(R.id.btAdd);
         btAdd.setText("Edit");
         id_announcement=getIntent().getStringExtra(AppConstants.ID);

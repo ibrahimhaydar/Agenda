@@ -29,21 +29,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.Html;
+import android.text.SpannableString;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.mobiweb.ibrahim.agenda.R;
 import com.mobiweb.ibrahim.agenda.activities.Activity_Splash;
-import com.mobiweb.ibrahim.agenda.models.entities.Activities;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 
@@ -54,8 +52,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService  {
@@ -234,15 +230,38 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService  {
         } else
             notificationBuilder = new NotificationCompat.Builder(this);
 
+       // String body = "Line 1<br>Line 2<br><i>Italic Line 3</i>";
+        String body = messageBody.replaceAll("\\\\n","<br>");
+        SpannableString formattedBody;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+             formattedBody = new  SpannableString(
 
-       if(withImage.matches("1")) {
+             Html.fromHtml(body, Html.FROM_HTML_MODE_LEGACY)
+    );
+        }else {
+             formattedBody = new  SpannableString(
+
+                    Html.fromHtml(body)
+            );
+
+        }
+
+
+        if(withImage.matches("1")) {
            notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                    .setSmallIcon(R.mipmap.ic_launcher)
                    .setLargeIcon(bitmap)
                    .setStyle(new NotificationCompat.BigPictureStyle()
                            .bigPicture(bitmap))/*Notification with Image*/
                    .setContentTitle(messageTitle)
-                   .setContentText(messageBody)
+                   //.setContentText(messageBody)
+       /*            .setStyle(new NotificationCompat.BigTextStyle()
+                           .bigText(messageBody.replaceAll("\\\\n","<br>"))
+                   )*/
+                   .setContentText(formattedBody)
+                   .setStyle(new NotificationCompat.BigTextStyle().bigText(formattedBody).setBigContentTitle(messageTitle))
+
+
                    .setAutoCancel(true)
                    .setSound(defaultSoundUri)
                    .setChannelId(getResources().getString(R.string.default_notification_channel_id))
@@ -251,7 +270,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService  {
            notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                    .setSmallIcon(R.mipmap.ic_launcher)
                    .setContentTitle(messageTitle)
-                   .setContentText(messageBody)
+                  // .setContentText(messageBody)
+                   .setContentText(formattedBody)
+                   .setStyle(new NotificationCompat.BigTextStyle().bigText(formattedBody).setBigContentTitle(messageTitle))
+
                    .setAutoCancel(true)
                    .setSound(defaultSoundUri)
                    .setChannelId(getResources().getString(R.string.default_notification_channel_id))

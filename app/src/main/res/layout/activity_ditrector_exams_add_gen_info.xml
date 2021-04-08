@@ -6,6 +6,7 @@
     android:orientation="vertical">
     <include layout="@layout/toolbar" />
     <include layout="@layout/loading"/>
+    <include layout="@layout/card_class_name"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,6 +48,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
                         android:layout_marginTop="10dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
                         android:background="@drawable/border"
                         />
 
@@ -64,6 +67,8 @@
                         android:id="@+id/etNote"
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
                         android:background="@drawable/border"
                         android:gravity="top" />
 
@@ -81,6 +86,8 @@
                         android:id="@+id/etMore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
                         android:background="@drawable/edit_text_border"
                         android:gravity="top" />
 

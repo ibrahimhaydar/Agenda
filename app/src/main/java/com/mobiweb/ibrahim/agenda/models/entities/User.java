@@ -23,9 +23,20 @@ public class User {
     @SerializedName("father_name")
     @Expose
     private String fatherName;
+
+    @SerializedName("name")
+    @Expose
+    private String name;
+
     @SerializedName("father_last_name")
     @Expose
     private String fatherLastName;
+
+
+    @SerializedName("parent_type")
+    @Expose
+    private String parent_type;
+
     @SerializedName("mother_name")
     @Expose
     private String motherName;
@@ -157,5 +168,21 @@ public class User {
 
     public void setEnable_evaluation(String enable_evaluation) {
         this.enable_evaluation = enable_evaluation;
+    }
+
+    public String getParent_type() {
+        return parent_type;
+    }
+
+    public void setParent_type(String parent_type) {
+        this.parent_type = parent_type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

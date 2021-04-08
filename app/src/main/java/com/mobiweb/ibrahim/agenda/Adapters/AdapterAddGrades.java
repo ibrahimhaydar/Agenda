@@ -51,7 +51,9 @@ public class AdapterAddGrades extends RecyclerView.Adapter<AdapterAddGrades.VHte
     public void onBindViewHolder(VHteacher_infoStudent holder, int position) {
         try { holder.etAddGrade.setText(infoStudents.get(position).getGrade());}catch (Exception e){}
         try {holder.ctvStudentName.setText(infoStudents.get(position).getName()); }catch (Exception e){}
-        try{ holder.etAddGrade.setFilters(new InputFilter[]{ new MinMaxFilter("0", maxGrade+"")});}catch (Exception e){}
+        try{
+            holder.etAddGrade.setFilters(new InputFilter[]{ new MinMaxFilter("0", maxGrade+"")});
+        }catch (Exception e){}
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.mobiweb.ibrahim.agenda.Adapters.AdapterAllClasses;
 import com.mobiweb.ibrahim.agenda.Adapters.interfaces.RVOnItemClickListener;
@@ -29,6 +30,10 @@ import com.mobiweb.ibrahim.agenda.activities.director.schedual.Activity_view_sch
 import com.mobiweb.ibrahim.agenda.activities.parents.agenda.ActivityAgenda;
 import com.mobiweb.ibrahim.agenda.activities.parents.agenda.ActivityImage;
 import com.mobiweb.ibrahim.agenda.activities.parents.exams.Activity_view_exams_all_details;
+import com.mobiweb.ibrahim.agenda.activities.teachers.Activity_add_evaluation;
+import com.mobiweb.ibrahim.agenda.activities.teachers.Activity_attendance;
+import com.mobiweb.ibrahim.agenda.activities.teachers.Activity_evaluation;
+import com.mobiweb.ibrahim.agenda.activities.teachers.Activity_teacher;
 import com.mobiweb.ibrahim.agenda.models.json.JsonGetAllClasses;
 import com.mobiweb.ibrahim.agenda.models.json.JsonParameters;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
@@ -246,18 +251,51 @@ public class Activity_classes extends ActivityBase implements RVOnItemClickListe
         if(intentFrom.matches(AppConstants.INTENT_DIRECTION)){
 
             if(getIntent().getStringExtra(AppConstants.INTENT_ACTIVITY)!=null){
-                Intent i = new Intent(Activity_classes.this, Activity_class_grades.class);
-                AppHelper.setId_class(adapterClasses.getclasses().get(position).getIdClass());
-                AppHelper.setId_section(adapterClasses.getclasses().get(position).getIdSection());
-                AppHelper.setClass_name(adapterClasses.getclasses().get(position).getClassName());
-                startActivity(i);
-            }else {
+         /*      if(getIntent().getStringExtra(AppConstants.INTENT_ACTIVITY).matches(AppConstants.INTENT_DIRECTOR_TACHER_SCHDL)) {
+                   Intent i = new Intent(Activity_classes.this, Activity_class_grades.class);
+                   AppHelper.setId_class(adapterClasses.getclasses().get(position).getIdClass());
+                   AppHelper.setId_section(adapterClasses.getclasses().get(position).getIdSection());
+                   AppHelper.setClass_name(adapterClasses.getclasses().get(position).getClassName());
+                   startActivity(i);
+               }else*/ if(getIntent().getStringExtra(AppConstants.INTENT_ACTIVITY).matches(AppConstants.INTENT_DIRECTOR_TACHER_EVALUATION)) {
+                   Intent i = new Intent(Activity_classes.this, Activity_teacher.class);
+                   AppHelper.setId_class(adapterClasses.getclasses().get(position).getIdClass());
+                   AppHelper.setId_section(adapterClasses.getclasses().get(position).getIdSection());
+                   AppHelper.setClass_name(adapterClasses.getclasses().get(position).getClassName());
+                   i.putExtra(AppConstants.INTENT_ACTIVITY,AppConstants.INTENT_DIRECTOR_TACHER_EVALUATION);
+                   startActivity(i);
+               }else if(getIntent().getStringExtra(AppConstants.INTENT_ACTIVITY).matches(AppConstants.INTENT_DIRECTOR_TACHER_ATTENDANCE)) {
+                   Intent i = new Intent(Activity_classes.this, Activity_attendance.class);
+                   i.putExtra(AppConstants.INTENT_ACTIVITY,AppConstants.INTENT_DIRECTOR_TACHER_ATTENDANCE);
+                   AppHelper.setId_class(adapterClasses.getclasses().get(position).getIdClass());
+                   AppHelper.setId_section(adapterClasses.getclasses().get(position).getIdSection());
+                   AppHelper.setClass_name(adapterClasses.getclasses().get(position).getClassName());
+                   startActivity(i);
+               }else {
+                   Intent i = new Intent(Activity_classes.this, Activity_class_grades.class);
+                   AppHelper.setId_class(adapterClasses.getclasses().get(position).getIdClass());
+                   AppHelper.setId_section(adapterClasses.getclasses().get(position).getIdSection());
+                   AppHelper.setClass_name(adapterClasses.getclasses().get(position).getClassName());
+                   startActivity(i);
+               }
 
-                Intent i = new Intent(Activity_classes.this, Activity_view_schedule.class);
-                i.putExtra(AppConstants.CLASS_NAME, adapterClasses.getclasses().get(position).getClassName());
-                i.putExtra(AppConstants.ClASS_ID, adapterClasses.getclasses().get(position).getIdClass());
-                i.putExtra(AppConstants.ClASS_SECTION_ID, adapterClasses.getclasses().get(position).getIdSection());
-                startActivity(i);
+               }else {
+
+                if(getIntent().getStringExtra(AppConstants.CLASSES_TYPE)!=null){
+                    Intent i = new Intent(Activity_classes.this, ActivityAgenda.class);
+                    i.putExtra(AppConstants.CLASS_NAME, adapterClasses.getclasses().get(position).getClassName());
+                    i.putExtra(AppConstants.ClASS_ID, adapterClasses.getclasses().get(position).getIdClass());
+                    i.putExtra(AppConstants.ClASS_SECTION_ID, adapterClasses.getclasses().get(position).getIdSection());
+                    startActivity(i);
+                }else {
+                    Intent i = new Intent(Activity_classes.this, Activity_view_schedule.class);
+                    i.putExtra(AppConstants.CLASS_NAME, adapterClasses.getclasses().get(position).getClassName());
+                    i.putExtra(AppConstants.ClASS_ID, adapterClasses.getclasses().get(position).getIdClass());
+                    i.putExtra(AppConstants.ClASS_SECTION_ID, adapterClasses.getclasses().get(position).getIdSection());
+                    startActivity(i);
+                }
+
+
             }
 
 
@@ -279,7 +317,7 @@ public class Activity_classes extends ActivityBase implements RVOnItemClickListe
 
 
 
-        else if(intentFrom.matches(AppConstants.INTENT_DIRECTION_EXAMS)){
+        else if(intentFrom.matches(AppConstants.INTENT_DIRECTION_EXAMS) || intentFrom.matches(AppConstants.INTENT_TEACHER_EXAMS)  ){
 
             Intent i = new Intent(Activity_classes.this, Activity_exams_main.class);
             i.putExtra(AppConstants.CLASS_NAME, adapterClasses.getclasses().get(position).getClassName());

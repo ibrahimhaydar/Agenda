@@ -28,6 +28,7 @@ import com.mobiweb.ibrahim.agenda.models.json.JsonAddHw;
 import com.mobiweb.ibrahim.agenda.models.json.JsonAgenda;
 import com.mobiweb.ibrahim.agenda.models.json.JsonParameters;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
+import com.mobiweb.ibrahim.agenda.utils.AppHelper;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitInterface;
 
@@ -75,15 +76,6 @@ public class Activity_edit_homework extends ActivityBase implements RVOnItemClic
 
 
         Calendar c = Calendar.getInstance();
-        int DayToday = c.get(Calendar.DAY_OF_WEEK);
-        Date today = c.getTime();
-        if(DayToday==c.FRIDAY)
-            c.add(Calendar.DAY_OF_YEAR, 3);
-        else if(DayToday==c.SATURDAY)
-            c.add(Calendar.DAY_OF_YEAR, 2);
-        else
-            c.add(Calendar.DAY_OF_YEAR, 1);
-
 
         int year = c.get(Calendar.YEAR);
         int day = c.get(Calendar.DAY_OF_MONTH);
@@ -94,9 +86,12 @@ public class Activity_edit_homework extends ActivityBase implements RVOnItemClic
         String dayOfWeek = simpledateformat.format(date);
 
 
+
+        //  dateNow = year + "-" +(month<10?("0"+month):(month)) + "-" + (day<10?("0"+day):(day)) ;
+        // dateNow=year + "-" + (month+1<10?("0"+month+1):(month+1))  + "-" + (day<10?("0"+day):(day)) + "  " +dayOfWeek;
         dateNow=year + "-" + (month+1)  + "-" + (day<10?("0"+day):(day));
-        ctvdate.setText(dayOfWeek + " " + (day < 10 ? ("0" + day) : (day)) + " " + MONTHS[month] + " " + year);
-        selectedDate=year + "-" + (month+1<10?("0"+month+1):(month+1))  + "-" + (day<10?("0"+day):(day)) + "  " +dayOfWeek;
+
+
 
         retreiveAgenda(id_class,id_section,dateNow);
         toolbarTitle.setText(getString(R.string.edit_hw));
@@ -132,11 +127,13 @@ public class Activity_edit_homework extends ActivityBase implements RVOnItemClic
                                 String dayOfWeek = simpledateformat.format(date);
 
 
-
-                                ctvdate.setText(dayOfWeek +" "+(dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth)) +" "+MONTHS[monthOfYear]+" "+year);
+                                if(dateNow.matches(year + "-" + (monthOfYear+1<10?("0"+monthOfYear+1):(monthOfYear+1))  + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth))))
+                                    ctvdate.setText("Today");
+                                else
+                                    ctvdate.setText(dayOfWeek +" "+(dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth)) +" "+MONTHS[monthOfYear]+" "+year);
 
                                 selectedDate=year + "-" + (monthOfYear+1)  + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
-                               // selectedDate=year + "-" + (monthOfYear+1<10?("0"+monthOfYear+1):(monthOfYear+1))  + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth)) + "  " +dayOfWeek;
+                                // selectedDate=year + "-" + (monthOfYear+1<10?("0"+monthOfYear+1):(monthOfYear+1))  + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth)) + "  " +dayOfWeek;
 
                                 retreiveAgenda(id_class,id_section,selectedDate);
 
@@ -197,7 +194,7 @@ public class Activity_edit_homework extends ActivityBase implements RVOnItemClic
         Log.wtf("id_section",id_section);
         Log.wtf("date",date);
         Call call1 = RetrofitClient.getClient().create(RetrofitInterface.class)
-                .getTeacherHw(new JsonParameters(id_class,id_section,date,id_teacher));
+                .getTeacherHwFiles(new JsonParameters(id_class,id_section,date,id_teacher));
         call1.enqueue(new Callback<JsonAgenda>() {
             @Override
             public void onResponse(Call<JsonAgenda> call, Response<JsonAgenda> response) {
@@ -267,35 +264,36 @@ public class Activity_edit_homework extends ActivityBase implements RVOnItemClic
     }
 
 
-private void onAgendaDeleted(JsonAddHw status,int position){
-    progress.setVisibility(View.GONE);
-    if(status.getStatus().equals("success")) {
-        Toast.makeText(getApplication(), "Homework is deleted successfully", Toast.LENGTH_LONG).show();
-        arrayAgenda.remove(position);
-        adapter_agenda.notifyDataSetChanged();
+    private void onAgendaDeleted(JsonAddHw status,int position){
+        progress.setVisibility(View.GONE);
+        if(status.getStatus().equals("success")) {
+            Toast.makeText(getApplication(), "Homework is deleted successfully", Toast.LENGTH_LONG).show();
+            arrayAgenda.remove(position);
+            adapter_agenda.notifyDataSetChanged();
+
+        }
+        else
+            Toast.makeText(getApplication(),"Please try again",Toast.LENGTH_LONG).show();
+
 
     }
-    else
-        Toast.makeText(getApplication(),"Please try again",Toast.LENGTH_LONG).show();
-
-
-}
 
     @Override
     public void onItemClicked(View view, int position) {
 
         if(view.getId()==R.id.linearDesc) {
-            Intent i = new Intent(Activity_edit_homework.this, Activity_edit_hw_inside.class);
+            Intent i = new Intent(Activity_edit_homework.this, Activity_edit_hw_files_inside.class);
             i.putExtra(AppConstants.HW_TITLE, adapter_agenda.getclasses().get(position).getHwTitle());
             i.putExtra(AppConstants.HW_DESC, adapter_agenda.getclasses().get(position).getHwDesc());
             i.putExtra(AppConstants.HW_DATE, adapter_agenda.getclasses().get(position).getHw_date());
-            i.putStringArrayListExtra(AppConstants.HW_IMAGE, adapter_agenda.getclasses().get(position).getHwImage());
+            AppHelper.setHwFiles(adapter_agenda.getclasses().get(position).getHwFiles());
             i.putExtra(AppConstants.HW_ID, adapter_agenda.getclasses().get(position).getHw_id());
 
             i.putExtra(AppConstants.ClASS_ID, id_class);
+            i.putExtra(AppConstants.CLASS_NAME, getIntent().getStringExtra(AppConstants.CLASS_NAME));
             i.putExtra(AppConstants.ClASS_SECTION_ID, id_section);
             i.putExtra(AppConstants.HW_INFO, adapter_agenda.getclasses().get(position).getHw_info());
-           // Toast.makeText(getApplication(),adapter_agenda.getclasses().get(position).getHw_info(),Toast.LENGTH_LONG).show();
+            // Toast.makeText(getApplication(),adapter_agenda.getclasses().get(position).getHw_info(),Toast.LENGTH_LONG).show();
 
 
             startActivity(i);

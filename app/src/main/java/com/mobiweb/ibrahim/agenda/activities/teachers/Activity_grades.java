@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobiweb.ibrahim.agenda.Agenda;
@@ -62,7 +63,7 @@ public class Activity_grades extends ActivityBase implements EditTextOnKeyListen
     private Activity activity;
     private boolean isEdit=false;
     private boolean isDelete=false;
-
+    private TextView tvCardClassName,tvCardExamName;
 
 
 
@@ -103,6 +104,12 @@ public class Activity_grades extends ActivityBase implements EditTextOnKeyListen
     }
 
     private void init(){
+        tvCardClassName=findViewById(R.id.tvCardClassName);
+        tvCardClassName.setText(AppHelper.getClass_name());
+        tvCardExamName=findViewById(R.id.tvCardExamName);
+        tvCardExamName.setText(AppHelper.getExamCategoryName());
+        tvCardExamName.setVisibility(View.VISIBLE);
+
         rvGrades=(RecyclerView)findViewById(R.id.rvGrades);
         toolbarTitle=(CustomTextViewBold)findViewById(R.id.toolbarTitle);
         toolbarTitleAr=(CustomTextViewBoldAr)findViewById(R.id.toolbarTitleAr);
@@ -118,7 +125,7 @@ public class Activity_grades extends ActivityBase implements EditTextOnKeyListen
         btAddEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapterAddGrades.notifyDataSetChanged();
+               try{ adapterAddGrades.notifyDataSetChanged();}catch (Exception e){}
 
                 if(checkGradeArray()){
                     Toast.makeText(getApplication(),"Please add grade",Toast.LENGTH_LONG).show();
@@ -313,7 +320,13 @@ public class Activity_grades extends ActivityBase implements EditTextOnKeyListen
             isEdit=false;
             btRemove.setVisibility(View.GONE);
         }
-        adapterAddGrades =new AdapterAddGrades(classStudents.getStudents(),this,Integer.parseInt(classStudents.getMax_grade()));
+        String max_grade="0";
+
+        if(classStudents.getMax_grade().matches(""))
+            max_grade="20";
+        else
+            max_grade=classStudents.getMax_grade();
+        adapterAddGrades =new AdapterAddGrades(classStudents.getStudents(),this,Integer.parseInt(max_grade));
         GridLayoutManager glm=new GridLayoutManager(this,1);
         rvGrades.setAdapter(adapterAddGrades);
         rvGrades.setLayoutManager(glm);

@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobiweb.ibrahim.agenda.Agenda;
@@ -75,7 +76,7 @@ public class Activity_edit_evaluation extends ActivityBase implements EditTextOn
     private RecyclerView rvStudents;
     private  LinearLayout linearProgressDialog;
     private Activity activity;
-
+    private TextView tvCardClassName;
 
 
 
@@ -136,6 +137,10 @@ public class Activity_edit_evaluation extends ActivityBase implements EditTextOn
     }
 
     private void init(){
+        tvCardClassName=findViewById(R.id.tvCardClassName);
+        tvCardClassName.setText(AppHelper.getClass_name());
+
+
         rvEvaluations=(RecyclerView)findViewById(R.id.rvEvaluation);
         toolbarTitle=(CustomTextViewBold)findViewById(R.id.toolbarTitle);
         toolbarTitleAr=(CustomTextViewBoldAr)findViewById(R.id.toolbarTitleAr);

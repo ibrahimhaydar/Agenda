@@ -87,6 +87,7 @@ public class AdapterDirectorAnnouncements extends RecyclerView.Adapter<AdapterDi
             if (isProbablyArabic(activities.get(position).getDescription())) {
                 try {
                     holder.descriptionAr.setText(activities.get(position).getDescription());
+
                 } catch (Exception e) {
                 }
                 holder.descriptionAr.setVisibility(View.VISIBLE);
@@ -108,6 +109,7 @@ public class AdapterDirectorAnnouncements extends RecyclerView.Adapter<AdapterDi
                 }
                 holder.description.setVisibility(View.VISIBLE);
                 holder.descriptionAr.setVisibility(View.GONE);
+
 
 
                 try {

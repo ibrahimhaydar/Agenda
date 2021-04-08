@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="60dp"
     android:orientation="vertical"
     android:layout_gravity="end"
     android:gravity="end"
@@ -15,7 +15,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="59dp"
         android:orientation="horizontal"
         android:layout_gravity="end"
         android:gravity="end"
@@ -44,14 +44,27 @@
 
         />
 
-            <com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ctvBirthday"
                 android:textSize="12sp"
+                android:layout_marginTop="4dp"
                 android:layout_gravity="end"
                 android:gravity="center_vertical"
                 android:text="1/1/1990"
+
+
+                />
+            <com.mobiweb.ibrahim.agenda.Custom.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvClassName"
+                android:textSize="12sp"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:text="الاول ابتدائي"
 
 
                 />

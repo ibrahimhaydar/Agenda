@@ -1,8 +1,5 @@
 <resources>
-    <string name="app_name">
-
-        ثانوية العهد اللبنانية
-</string>
+    <string name="app_name">ثانوية العهد اللبنانية</string>
     <string name="welcome">Welcome</string>
     <string name="welcome_ar">أهلاً وسهلاً </string>
 
@@ -116,8 +113,8 @@
     <string name="schedual">Weekly Schedule</string>
     <string name="schedualAr">البرنامج الأسبوعي</string>
 
-    <string name="schedual_teacher">Teacher Schedule</string>
-    <string name="schedual_teacherAr">البرنامج الأساتذة</string>
+    <string name="schedual_teacher">Teacher\'s Schedule</string>
+    <string name="schedual_teacherAr">برنامج الأساتذة</string>
 
 
     <string name="category">Exam Types</string>

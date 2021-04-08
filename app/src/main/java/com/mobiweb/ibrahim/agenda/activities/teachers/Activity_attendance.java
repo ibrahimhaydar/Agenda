@@ -11,11 +11,13 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobiweb.ibrahim.agenda.Adapters.AdapterTeacherCourses;
@@ -33,22 +36,28 @@ import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBold;
 import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewBoldAr;
 import com.mobiweb.ibrahim.agenda.R;
 import com.mobiweb.ibrahim.agenda.activities.Activity_main;
+import com.mobiweb.ibrahim.agenda.activities.director.Activity_direction_home;
 import com.mobiweb.ibrahim.agenda.activities.director.agenda.Activity_all_teachers;
 import com.mobiweb.ibrahim.agenda.models.Student;
 import com.mobiweb.ibrahim.agenda.models.entities.PostAttendance;
 import com.mobiweb.ibrahim.agenda.models.json.JsonClassStudents;
+import com.mobiweb.ibrahim.agenda.models.json.JsonDate;
 import com.mobiweb.ibrahim.agenda.models.json.JsonEvaluation;
 import com.mobiweb.ibrahim.agenda.models.json.JsonParameters;
 import com.mobiweb.ibrahim.agenda.models.json.JsonEvaluation;
 import com.mobiweb.ibrahim.agenda.models.json.JsonResponse;
 import com.mobiweb.ibrahim.agenda.utils.AppConstants;
 import com.mobiweb.ibrahim.agenda.utils.AppHelper;
+import com.mobiweb.ibrahim.agenda.utils.InternetConnection;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitClient;
 import com.mobiweb.ibrahim.agenda.utils.RetrofitInterface;
 
+import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -93,7 +102,8 @@ public class Activity_attendance extends ActivityBase implements RGOnChangeListe
     private String displayDate="اليوم";
     private LinearLayout btSelectAll;
     private Date DateNow,SelectedDate;
-
+    private TextView tvCannotAdd;
+    private TextView tvCardClassName;
 
 
 
@@ -116,8 +126,13 @@ public class Activity_attendance extends ActivityBase implements RGOnChangeListe
         ivRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION))
-                    startActivity(new Intent(Activity_attendance.this,Activity_all_teachers.class));
+                if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION)) {
+                    if(getIntent().getStringExtra(AppConstants.INTENT_ACTIVITY)!=null) {
+                        startActivity(new Intent(Activity_attendance.this, Activity_direction_home.class));
+                    }else {
+                        startActivity(new Intent(Activity_attendance.this, Activity_all_teachers.class));
+                    }
+                }
                 else
                     startActivity(new Intent(Activity_attendance.this,Activity_teacher.class));
                 finish();
@@ -159,7 +174,72 @@ public class Activity_attendance extends ActivityBase implements RGOnChangeListe
 
     }
 
+    @Override
+    protected void onResume() {
+        if(!InternetConnection.checkConnection(this)){
+            showDialog("Please check your internet connection");
+        }else
+           checkDate();
+        super.onResume();
+    }
+
+    public void checkDate() {
+        progress.setVisibility(View.VISIBLE);
+        Call call1 = RetrofitClient.getClient().create(RetrofitInterface.class)
+                .getServerDate();
+        call1.enqueue(new Callback<JsonDate>() {
+            @Override
+            public void onResponse(Call<JsonDate> call, Response<JsonDate> response) {
+
+                try {
+                    Calendar c = Calendar.getInstance();
+
+                    int year = c.get(Calendar.YEAR);
+                    int day = c.get(Calendar.DAY_OF_MONTH);
+                    int month = c.get(Calendar.MONTH);
+                   String phoneDate=year + "-" + (month+1<10?"0"+(month+1):(month+1))  + "-" + (day<10?("0"+day):(day));
+                   if (!response.body().getServer_date().matches(phoneDate))
+                       showDialog("Please check your phone date");
+
+                } catch (Exception e) {
+                    Log.wtf("exception","exception");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonDate> call, Throwable t) {
+                call.cancel();
+            }
+        });
+    }
+
+    private void showDialog(String message){
+        final Dialog responseDialog = new Dialog(this);
+        responseDialog.setContentView(R.layout.popup_response);
+        Button btOk=(Button)responseDialog.findViewById(R.id.btOk);
+        CustomTextView ctvDialogMessage=(CustomTextView)responseDialog.findViewById(R.id.ctvMessage);
+        responseDialog.setCanceledOnTouchOutside(false);
+        responseDialog.setCancelable(false);
+        ctvDialogMessage.setText(message);
+        btOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                responseDialog.dismiss();
+                finish();
+
+            }
+        });
+
+
+
+        responseDialog.show();
+    }
+
     private void init(){
+
+        tvCardClassName=findViewById(R.id.tvCardClassName);
+        tvCardClassName.setText(AppHelper.getClass_name());
+
         rvEvaluations=(RecyclerView)findViewById(R.id.rvEvaluation);
         toolbarTitle=(CustomTextViewBold)findViewById(R.id.toolbarTitle);
         toolbarTitleAr=(CustomTextViewBoldAr)findViewById(R.id.toolbarTitleAr);
@@ -173,6 +253,7 @@ public class Activity_attendance extends ActivityBase implements RGOnChangeListe
         rvAttendance=(RecyclerView)findViewById(R.id.rvAttendance);
         btAddEdit=(Button)findViewById(R.id.btAddEdit);
         btSelectAll=(LinearLayout)findViewById(R.id.linearSelectAll);
+        tvCannotAdd=(TextView)findViewById(R.id.tvCannotAdd);
 
     }
 
@@ -247,6 +328,21 @@ public class Activity_attendance extends ActivityBase implements RGOnChangeListe
 
     private void onStudentsRetreived(JsonClassStudents classStudents){
         progress.setVisibility(View.GONE);
+
+/*        ArrayList<Student> array=new ArrayList<>();
+        array.addAll(classStudents.getStudents());
+        Locale arabic = new Locale("ar");
+        final Collator arabicCollator = Collator.getInstance(arabic);
+         Collections.sort(array, new Comparator<Student>() {
+            @Override
+            public int compare(Student one, Student two) {
+                             return arabicCollator.compare(one.getName(), two.getName());
+            }
+
+        });*/
+
+
+
         adapterAttendance=new AdapterAttendance(classStudents.getStudents(),this);
         GridLayoutManager glm=new GridLayoutManager(this,1);
         rvAttendance.setAdapter(adapterAttendance);
@@ -262,10 +358,14 @@ public class Activity_attendance extends ActivityBase implements RGOnChangeListe
         if(SelectedDate.compareTo(DateNow)>0
         || (!((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION) && SelectedDate.compareTo(DateNow)<0)
         || (!((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION) && SelectedDate.compareTo(DateNow)==0 && classStudents.getIsEdit().matches("1"))
-         )
+         ) {
             btAddEdit.setVisibility(View.GONE);
-        else
+            tvCannotAdd.setVisibility(View.VISIBLE);
+        }
+        else {
             btAddEdit.setVisibility(View.VISIBLE);
+            tvCannotAdd.setVisibility(View.GONE);
+        }
 
     }
 
@@ -348,8 +448,13 @@ public class Activity_attendance extends ActivityBase implements RGOnChangeListe
             public void onClick(View view) {
 
                 if(isSuccess) {
-                    if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION))
-                        startActivity(new Intent(Activity_attendance.this,Activity_Teacher_Homeworks.class));
+                    if(((Agenda)getApplication()).getCashedType().matches(AppConstants.LOGIN_DIRECTION)) {
+                        if(getIntent().getStringExtra(AppConstants.INTENT_ACTIVITY)!=null) {
+                            startActivity(new Intent(Activity_attendance.this, Activity_direction_home.class));
+                        }else {
+                            startActivity(new Intent(Activity_attendance.this, Activity_Teacher_Homeworks.class));
+                        }
+                    }
                     else
                         startActivity(new Intent(Activity_attendance.this,Activity_Teacher_Homeworks.class));
 

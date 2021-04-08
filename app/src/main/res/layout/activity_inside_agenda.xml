@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/grayText"
                 android:textSize="18sp"
+                android:autoLink="web"
                 android:id="@+id/description"
                 android:layout_marginTop="20dp"
            />

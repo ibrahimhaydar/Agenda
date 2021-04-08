@@ -52,26 +52,26 @@ public class Adapter_agenda extends RecyclerView.Adapter<Adapter_agenda.VHAgenda
             holder.linearInfo.setVisibility(View.GONE);
 
 
-      try {
-          if (isProbablyArabic(classes.get(position).getHwDesc())) {
-              try {
-                  holder.descriptionAr.setText(classes.get(position).getHwDesc());
-              } catch (Exception e) {
-              }
-              holder.descriptionAr.setVisibility(View.VISIBLE);
-              holder.description.setVisibility(View.GONE);
+        try {
+            if (isProbablyArabic(classes.get(position).getHwDesc())) {
+                try {
+                    holder.descriptionAr.setText(classes.get(position).getHwDesc());
+                } catch (Exception e) {
+                }
+                holder.descriptionAr.setVisibility(View.VISIBLE);
+                holder.description.setVisibility(View.GONE);
 
 
-          } else {
-              try {
-                  holder.description.setText(classes.get(position).getHwDesc());
-              } catch (Exception e) {
-              }
-              holder.description.setVisibility(View.VISIBLE);
-              holder.descriptionAr.setVisibility(View.GONE);
+            } else {
+                try {
+                    holder.description.setText(classes.get(position).getHwDesc());
+                } catch (Exception e) {
+                }
+                holder.description.setVisibility(View.VISIBLE);
+                holder.descriptionAr.setVisibility(View.GONE);
 
-          }
-      }catch (Exception e){}
+            }
+        }catch (Exception e){}
 
 
 

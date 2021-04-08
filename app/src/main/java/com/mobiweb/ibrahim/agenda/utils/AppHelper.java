@@ -1,19 +1,32 @@
 package com.mobiweb.ibrahim.agenda.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -23,13 +36,21 @@ import com.mobiweb.ibrahim.agenda.R;
 import com.mobiweb.ibrahim.agenda.models.entities.Allclass;
 import com.mobiweb.ibrahim.agenda.models.entities.Classes;
 import com.mobiweb.ibrahim.agenda.models.entities.Evaluation;
+import com.mobiweb.ibrahim.agenda.models.entities.Files;
 import com.mobiweb.ibrahim.agenda.models.entities.Image;
 import com.mobiweb.ibrahim.agenda.models.entities.InfoStudent;
 import com.mobiweb.ibrahim.agenda.models.json.JsonAddHw;
 import com.mobiweb.ibrahim.agenda.models.json.JsonParameters;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,15 +59,15 @@ import retrofit2.Response;
 
 public class AppHelper {
     public static String UserIdretreive;
-    public static String courseName,courseId,teacherId,teacher_name,studentId;
+    public static String courseName,courseId,teacherId,teacher_name,studentId="0",examCategoryName;
     public static ArrayList<Image> activityImages=new ArrayList<>();
     public static String id_class,id_section,id_category_exam,class_name;
     public static Boolean isPush=false;
     public static ArrayList<InfoStudent> arrayEvaluationInfo=new ArrayList<>();
     public static String selectedDate;
     public static ArrayList<Allclass> SelectedClasses=new ArrayList<>();
-
-
+    public static ArrayList<Files> hwFiles=new ArrayList<>();
+    public static final SimpleDateFormat SDF = new SimpleDateFormat("yyyymmddhhmmss", Locale.getDefault());
     public static ArrayList<Allclass> getSelectedClasses() {
         return SelectedClasses;
     }
@@ -69,6 +90,14 @@ public class AppHelper {
 
     public static void setTeacher_name(String teacher_name) {
         AppHelper.teacher_name = teacher_name;
+    }
+
+    public static String getExamCategoryName() {
+        return examCategoryName;
+    }
+
+    public static void setExamCategoryName(String examCategoryName) {
+        AppHelper.examCategoryName = examCategoryName;
     }
 
     public static String getStudentId() {
@@ -413,6 +442,189 @@ public class AppHelper {
             }
         });
     }
+    public static File getCompressed(Context context, String path, int i) throws IOException {
+
+        if(context == null)
+            throw new NullPointerException("Context must not be null.");
+        //getting device external cache directory, might not be available on some devices,
+        // so our code fall back to internal storage cache directory, which is always available but in smaller quantity
+        File cacheDir = context.getExternalCacheDir();
+        if(cacheDir == null)
+            //fall back
+            cacheDir = context.getCacheDir();
+
+        String rootDir = cacheDir.getAbsolutePath() + "/ImageCompressor";
+        File root = new File(rootDir);
+
+        //Create ImageCompressor folder if it doesnt already exists.
+        if(!root.exists())
+            root.mkdirs();
+
+        //decode and resize the original bitmap from @param path.
+        Bitmap bitmap = decodeImageFromFiles(path, /* your desired width*/700, /*your desired height*/ 700);
+
+
+        //create placeholder for the compressed image file
+        File compressed = new File(root, SDF.format(new Date()) +i+ ".jpg" /*Your desired format*/);
+
+        //convert the decoded bitmap to stream
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        /*compress bitmap into byteArrayOutputStream
+            Bitmap.compress(Format, Quality, OutputStream)
+
+            Where Quality ranges from 1 - 100.
+         */
+        try
+        {
+            // Determine Orientation
+            ExifInterface exif = new ExifInterface(path);
+            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+            // Determine Rotation
+            int rotation = 0;
+            if      (orientation == 6)      rotation = 90;
+            else if (orientation == 3)      rotation = 180;
+            else if (orientation == 8)      rotation = 270;
+
+            // Rotate Image if Necessary
+            if (rotation != 0)
+            {
+                // Create Matrix
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotation);
+
+                // Rotate Bitmap
+                Bitmap rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+                // Pretend none of this ever happened!
+                bitmap.recycle();
+                bitmap = rotated;
+                rotated = null;
+            }
+        }
+        catch (Exception e)
+        {
+            // TODO: Log Error Messages Here
+        }
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+
+        /*
+        Right now, we have our bitmap inside byteArrayOutputStream Object, all we need next is to write it to the compressed file we created earlier,
+        java.io.FileOutputStream can help us do just That!
+
+         */
+        FileOutputStream fileOutputStream = new FileOutputStream(compressed);
+        fileOutputStream.write(byteArrayOutputStream.toByteArray());
+        fileOutputStream.flush();
+
+        fileOutputStream.close();
+
+
+
+        //File written, return to the caller. Done!
+        return compressed;
+    }
+
+    public static Bitmap decodeImageFromFiles(String path, int width, int height) {
+        BitmapFactory.Options scaleOptions = new BitmapFactory.Options();
+
+
+
+
+        scaleOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, scaleOptions);
+        int scale = 1;
+        while (scaleOptions.outWidth / scale / 2 >= width
+                && scaleOptions.outHeight / scale / 2 >= height) {
+            scale *= 2;
+        }
+        // decode with the sample size
+        BitmapFactory.Options outOptions = new BitmapFactory.Options();
+        outOptions.inSampleSize = scale;
+        return BitmapFactory.decodeFile(path, outOptions);
+    }
+
+
+    public static ArrayList<Files> getHwFiles() {
+        return hwFiles;
+    }
+
+    public static void setHwFiles(ArrayList<Files> hwFiles) {
+        AppHelper.hwFiles = hwFiles;
+    }
+
+    public static void startNewActivity(Context context, String packageName) {
+        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent == null) {
+            // Bring user to the market or let them choose an app?
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + packageName));
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+    public static void justify(final TextView textView) {
+
+        final AtomicBoolean isJustify = new AtomicBoolean(false);
+
+        final String textString = textView.getText().toString();
+
+        final TextPaint textPaint = textView.getPaint();
+
+        final SpannableStringBuilder builder = new SpannableStringBuilder();
+
+        textView.post(new Runnable() {
+            @Override
+            public void run() {
+
+                if (!isJustify.get()) {
+
+                    final int lineCount = textView.getLineCount();
+                    final int textViewWidth = textView.getWidth();
+
+                    for (int i = 0; i < lineCount; i++) {
+
+                        int lineStart = textView.getLayout().getLineStart(i);
+                        int lineEnd = textView.getLayout().getLineEnd(i);
+
+                        String lineString = textString.substring(lineStart, lineEnd);
+
+                        if (i == lineCount - 1) {
+                            builder.append(new SpannableString(lineString));
+                            break;
+                        }
+
+                        String trimSpaceText = lineString.trim();
+                        String removeSpaceText = lineString.replaceAll(" ", "");
+
+                        float removeSpaceWidth = textPaint.measureText(removeSpaceText);
+                        float spaceCount = trimSpaceText.length() - removeSpaceText.length();
+
+                        float eachSpaceWidth = (textViewWidth - removeSpaceWidth) / spaceCount;
+
+                        SpannableString spannableString = new SpannableString(lineString);
+                        for (int j = 0; j < trimSpaceText.length(); j++) {
+                            char c = trimSpaceText.charAt(j);
+                            if (c == ' ') {
+                                Drawable drawable = new ColorDrawable(0x00ffffff);
+                                drawable.setBounds(0, 0, (int) eachSpaceWidth, 0);
+                                ImageSpan span = new ImageSpan(drawable);
+                                spannableString.setSpan(span, j, j + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            }
+                        }
+
+                        builder.append(spannableString);
+                    }
+
+                    textView.setText(builder);
+                    isJustify.set(true);
+                }
+            }
+        });
+    }
+
+
 
 
 }

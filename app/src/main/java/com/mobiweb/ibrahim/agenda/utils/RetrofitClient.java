@@ -15,11 +15,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
  //public static final String BASE_URL = "http://www.quotesandsayings.net/agenda/API2/";
- // public static final String BASE_URL = "http://www.mobiweb-software.com/agenda/APIdirectiontest/";
+// public static final String BASE_URL = "http://www.mobiweb-software.com/agenda/APIdirectiontest/";
+  public static final String BASE_URL = "http://www.mobiweb-software.com/agenda/API3_live/";
  //public static final String BASE_URL = "http://www.lass.academy/API/";
  // public static final String BASE_URL = "http://192.168.1.11:8080/agenda/API3/";
-// public static final String BASE_URL = "http://www.mobiweb-software.com/agenda/API3/";
- public static final String BASE_URL = "http://www.mobiweb-software.com/agenda/API/";
+ //public static final String BASE_URL = "http://www.mobiweb-software.com/agenda/API3/";
+// public static final String BASE_URL = "http://www.mobiweb-software.com/agenda/API/";
  //   public static final String BASE_URL = "http://www.mobiweb-software.com/agenda/API_demo/";
 
     private static Retrofit retrofit = null;

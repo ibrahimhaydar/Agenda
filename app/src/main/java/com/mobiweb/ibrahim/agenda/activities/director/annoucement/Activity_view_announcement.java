@@ -1,5 +1,6 @@
 package com.mobiweb.ibrahim.agenda.activities.director.annoucement;
 
+import com.mobiweb.ibrahim.agenda.Custom.CustomTextViewAr;
 import com.mobiweb.ibrahim.agenda.activities.ActivityBase; import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -218,7 +219,8 @@ public class Activity_view_announcement extends ActivityBase implements RVOnItem
             AppHelper.setActivityImages(adapterAnnouncements.getactivities().get(position).getImages());
             startActivity(i);
         }else if(view.getId()==R.id.btDeleteActivity){
-             deleteAnnouncement(adapterAnnouncements.getactivities().get(position).getAnnouncement_id());
+           //  deleteAnnouncement(adapterAnnouncements.getactivities().get(position).getAnnouncement_id());
+             confirmDelete(adapterAnnouncements.getactivities().get(position).getAnnouncement_id());
         }
         else {
 
@@ -277,7 +279,36 @@ public class Activity_view_announcement extends ActivityBase implements RVOnItem
             }
         });
     }
+    private void confirmDelete(final String id){
 
+        final Dialog deletGradeDialog = new Dialog(this);
+        deletGradeDialog.setContentView(R.layout.popup_logout);
+
+        CustomTextView ctvDialog=(CustomTextView)deletGradeDialog.findViewById(R.id.ctvDialog);
+        CustomTextViewAr ctvDialogAr=(CustomTextViewAr)deletGradeDialog.findViewById(R.id.ctvDialogAr);
+        ctvDialog.setText("Are you sure you want to delete announcement?");
+        ctvDialogAr.setVisibility(View.GONE);
+
+        CustomTextView btYes=(CustomTextView)deletGradeDialog.findViewById(R.id.yes);
+        CustomTextView btNo=(CustomTextView)deletGradeDialog.findViewById(R.id.no);
+        btYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deletGradeDialog.dismiss();
+                deleteAnnouncement(id);
+            }
+        });
+        btNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deletGradeDialog.dismiss();
+            }
+        });
+
+
+
+        deletGradeDialog.show();
+    }
 
     private void onImageDelete(JsonAddHw status){
         progress.setVisibility(View.GONE);
